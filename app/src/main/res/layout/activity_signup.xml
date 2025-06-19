@@ -42,6 +42,7 @@
             android:gravity="center_vertical">
 
             <EditText
+                android:id="@+id/usernameInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -50,8 +51,7 @@
                 android:textColorHint="#FFFFFF"
                 android:background="@android:color/transparent"
                 android:inputType="textPersonName"
-                android:drawableStart="@drawable/ic_person"
-                />
+                android:drawableStart="@drawable/ic_person" />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -76,6 +76,7 @@
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_dialog_email" />
             <EditText
+                android:id="@+id/emailInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -108,6 +109,7 @@
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_dialog_map" />
             <EditText
+                android:id="@+id/cityInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -124,7 +126,7 @@
 
         <!-- Password -->
         <TextView
-            android:text="password"
+            android:text="Password"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
@@ -140,6 +142,7 @@
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_lock_idle_lock" />
             <EditText
+                android:id="@+id/passwordInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -156,7 +159,7 @@
 
         <!-- Confirm Password -->
         <TextView
-            android:text="confirm  password"
+            android:text="Confirm Password"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
@@ -172,10 +175,11 @@
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_lock_idle_lock" />
             <EditText
+                android:id="@+id/confirmPasswordInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Enter the password"
+                android:hint="Confirm the password"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF"
                 android:background="@android:color/transparent"
