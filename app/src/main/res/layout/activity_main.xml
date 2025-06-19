@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="130dp"
-            android:layout_height="149dp"
+            android:layout_width="231dp"
+            android:layout_height="216dp"
             android:contentDescription="GrowStep Logo"
             android:src="@drawable/growstep_logo" />
     </LinearLayout>

@@ -43,9 +43,9 @@ public class MainActivity extends Activity {
 
         // 5. Delay for 3 seconds and move to LoginActivity
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish(); // Close splash screen
-        }, 3000);
+             // Close splash screen
+        }, 5000);
     }
 }
