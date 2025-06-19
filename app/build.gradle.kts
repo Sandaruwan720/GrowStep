@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.s23010163.growstep"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.s23010163.growstep"

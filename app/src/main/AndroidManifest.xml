@@ -22,6 +22,8 @@
 
         <!-- Login Activity -->
         <activity android:name=".LoginActivity" />
+        <activity android:name=".SignupActivity" />
+
 
     </application>
 

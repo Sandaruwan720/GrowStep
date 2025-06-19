@@ -1,8 +1,7 @@
 package com.s23010163.growstep;
 
-
-
 import android.app.Activity;
+import android.content.Intent; // ✅ Important
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,9 +35,9 @@ public class LoginActivity extends Activity {
         });
 
         signUpButton.setOnClickListener(v -> {
-            // Navigate to Sign Up Page
-            Toast.makeText(this, "Sign Up Clicked", Toast.LENGTH_SHORT).show();
-            // startActivity(new Intent(this, SignUpActivity.class));
+            // ✅ Navigate to SignUpActivity
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
         });
     }
 }
