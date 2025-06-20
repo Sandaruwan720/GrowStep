@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/header_gradient"
+        android:background="@drawable/header_section_backgroundc0l0r"
         android:orientation="vertical"
         android:padding="24dp">
 
@@ -64,12 +64,12 @@
 
         <TextView
             android:id="@+id/tvUnit"
-            android:layout_width="89dp"
-            android:layout_height="41dp"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
-            android:text="Steps"
-            android:textColor="#C2EAE8"
+            android:text="  Steps"
+            android:textColor="#FFFFFF"
             android:textSize="30sp" />
     </FrameLayout>
 
@@ -104,7 +104,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="7,250"
-                android:textColor="#FFFFFF"
+                android:textColor="#2C1C3C"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -129,7 +129,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="6.2 km"
-                android:textColor="#00FFFF"
+                android:textColor="#2C1C3C"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -154,7 +154,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="342 kcal"
-                android:textColor="#00FFFF"
+                android:textColor="#2C1C3C"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
@@ -168,7 +168,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/nav_bg"
+        android:background="@drawable/navigation_bar"
         android:orientation="horizontal"
         android:padding="5dp"
         android:weightSum="4">
