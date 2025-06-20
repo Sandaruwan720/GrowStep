@@ -1,6 +1,7 @@
 package com.s23010163.growstep;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +58,11 @@ public class PersonalInfoActivity extends Activity {
                 Toast.makeText(this, "Values must be greater than 0.", Toast.LENGTH_SHORT).show();
                 return;
             }
+            btnContinue.setOnClickListener(v -> {
+                // Navigate to SignupActivity
+                Intent intent = new Intent(PersonalInfoActivity.this, HomeActivity.class);
+                startActivity(intent);
+            });
 
             // Success
             String result = "Saved: Gender: " + gender + "\nAge: " + age + "\nHeight: " + height + " cm\nWeight: " + weight + " kg";
