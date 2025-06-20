@@ -19,7 +19,7 @@
             android:id="@+id/tvGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello, Tharuka!"
+            android:text="Walking Groups"
             android:textColor="#FFFFFF"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -28,7 +28,7 @@
             android:id="@+id/tvSubGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ready for today's adventure?"
+            android:text="Join or create walking sessions"
             android:textColor="#B8E5E4"
             android:textSize="16sp" />
     </LinearLayout>
@@ -44,9 +44,11 @@
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp"
-        app:cardBackgroundColor="@drawable/header_section_backgroundc0l0r">
+        app:cardBackgroundColor="@android:color/transparent"
+        >
 
         <LinearLayout
+            android:background="@drawable/walking_group_backgroundcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -78,7 +80,7 @@
                 <TextView
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_gradient"
+                    android:background="@drawable/group_members_name_color"
                     android:text="S"
                     android:gravity="center"
                     android:textColor="@android:color/white"
@@ -88,7 +90,7 @@
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:background="@drawable/button_gradient"
+                    android:background="@drawable/group_members_name_color"
                     android:text="M"
                     android:gravity="center"
                     android:textColor="@android:color/white"
@@ -98,7 +100,7 @@
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:background="@drawable/button_gradient"
+                    android:background="@drawable/group_members_name_color"
                     android:text="J"
                     android:gravity="center"
                     android:textColor="@android:color/white"
@@ -108,7 +110,7 @@
                     android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:background="@drawable/button_gradient"
+                    android:background="@drawable/group_members_name_color"
                     android:text="+2"
                     android:gravity="center"
                     android:textColor="@android:color/white"
@@ -136,9 +138,11 @@
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="6dp"
-        app:cardBackgroundColor="#423A85">
+        app:cardBackgroundColor="@android:color/transparent"
+        >
 
         <LinearLayout
+            android:background="@drawable/walking_group_backgroundcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -170,7 +174,7 @@
                 <TextView
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_gradient"
+                    android:background="@drawable/group_members_name_color"
                     android:text="K"
                     android:gravity="center"
                     android:textColor="@android:color/white"
@@ -180,7 +184,7 @@
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:background="@drawable/button_gradient"
+                    android:background="@drawable/group_members_name_color"
                     android:text="A"
                     android:gravity="center"
                     android:textColor="@android:color/white"
@@ -297,7 +301,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Start Button and Shadow (Placed above bottom navigation) -->
+    <!-- Start Button and Shadow -->
     <TextView
         android:id="@+id/diamondShadow"
         android:layout_width="63dp"
