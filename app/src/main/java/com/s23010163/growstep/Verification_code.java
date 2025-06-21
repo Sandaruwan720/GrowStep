@@ -36,7 +36,7 @@ public class Verification_code extends Activity {
                 Toast.makeText(this, "Code Verified: " + fullCode, Toast.LENGTH_SHORT).show();
 
                 // Navigate to HomeActivity
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, CreatePassword.class);
                 startActivity(intent);
                 finish();
             }
