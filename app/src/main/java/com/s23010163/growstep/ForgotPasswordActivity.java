@@ -1,5 +1,6 @@
 package com.s23010163.growstep;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "OTP sent to " + email, Toast.LENGTH_SHORT).show();
+
+                // Navigate to Verification Page
+                Intent intent = new Intent(ForgotPasswordActivity.this, Verification_code.class);
+                startActivity(intent);
             }
         });
     }

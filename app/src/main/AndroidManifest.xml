@@ -27,6 +27,7 @@
         <activity android:name=".PersonalInfoActivity" /><!-- Added HomeActivity here -->
         <activity android:name=".GroupsActivity" />
         <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".Verification_code" />
 
 
 
