@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:backgroundTint="#64A3E0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:text="Create Group Walk"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <!-- Group Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Group Name"
+            android:textColor="#161414"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/groupName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/activity_crate_group_edittext_bg"
+            android:hint="Enter group name"
+            android:padding="10dp"
+            android:textColor="#0D0D0D"
+            android:textColorHint="#121212" />
+
+        <!-- Start Time -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Start Time"
+            android:textSize="22sp"
+            android:textColor="#161414"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/startTime"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/activity_crate_group_edittext_bg"
+            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+            android:focusable="false"
+            android:textColor="#0D0D0D"
+            android:textColorHint="#121212"
+            android:hint="mm/dd/yyyy,  -- : -- --"
+            android:padding="10dp" />
+
+        <!-- Max Participants -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="22sp"
+            android:text="Max Participants"
+            android:textColor="#161414"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/maxParticipants"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/activity_crate_group_edittext_bg"
+            android:hint="05 people"
+            android:inputType="number"
+            android:textColor="#0D0D0D"
+            android:textColorHint="#121212"
+            android:padding="10dp" />
+
+        <!-- Route -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#161414"
+            android:textSize="22sp"
+            android:text="Route"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/route"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/activity_crate_group_edittext_bg"
+            android:hint="Enter route name"
+            android:textColor="#0D0D0D"
+            android:textColorHint="#121212"
+            android:padding="10dp" />
+
+        <!-- Create New Group Button -->
+        <Button
+            android:id="@+id/createGroupButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/activity_create_group_button_gradient"
+            android:text="Create New Group"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+</ScrollView>

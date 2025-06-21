@@ -198,8 +198,23 @@
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:layout_marginTop="6dp" />
+
         </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/createGroup"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="550dp"
+        android:background="@drawable/forgot_password_button_gradient"
+        android:backgroundTint="#942F2F"
+        android:text="Create New Group"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
 
     <!-- Bottom Navigation Bar -->
     <LinearLayout
@@ -299,6 +314,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
+
     </LinearLayout>
 
     <!-- Start Button and Shadow -->
@@ -332,5 +348,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="56dp" />
+
+
 
 </RelativeLayout>
