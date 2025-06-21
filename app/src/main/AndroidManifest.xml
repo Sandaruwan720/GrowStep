@@ -26,6 +26,9 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".PersonalInfoActivity" /><!-- Added HomeActivity here -->
         <activity android:name=".GroupsActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
+
+
 
 
     </application>

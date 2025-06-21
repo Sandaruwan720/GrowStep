@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GrowStep</string>
+    <string name="forgot_password_title">Forgot password</string>
+    <string name="enter_email_label">Enter the Email</string>
+    <string name="email_hint">user@gmail.com</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="email_icon_desc">Email icon</string>
 </resources>
