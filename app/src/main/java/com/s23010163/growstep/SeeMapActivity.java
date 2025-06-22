@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,13 +57,11 @@ public class SeeMapActivity extends AppCompatActivity implements OnMapReadyCallb
         btnMusic.setOnClickListener(v ->
                 Toast.makeText(this, "Music button clicked", Toast.LENGTH_SHORT).show());
 
-        findViewById(R.id.nav_home).setOnClickListener(v -> {
-            startActivity(new android.content.Intent(this, HomeActivity.class));
-        });
+        findViewById(R.id.nav_home).setOnClickListener(v ->
+                startActivity(new android.content.Intent(this, HomeActivity.class)));
 
-        findViewById(R.id.nav_groups).setOnClickListener(v -> {
-            startActivity(new android.content.Intent(this, GroupsActivity.class));
-        });
+        findViewById(R.id.nav_groups).setOnClickListener(v ->
+                startActivity(new android.content.Intent(this, GroupsActivity.class)));
     }
 
     private void initMap() {
@@ -95,14 +92,6 @@ public class SeeMapActivity extends AppCompatActivity implements OnMapReadyCallb
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Geocoder failed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void moveToDefaultLocation() {
-        if (mMap != null) {
-            LatLng defaultLocation = new LatLng(37.4219983, -122.084);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15));
-            Toast.makeText(this, "Moved to your location", Toast.LENGTH_SHORT).show();
         }
     }
 

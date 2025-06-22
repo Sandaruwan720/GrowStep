@@ -5,164 +5,174 @@
     android:layout_height="match_parent"
     android:background="#050505">
 
-    <!-- Step Progress Circle -->
-    <FrameLayout
-        android:id="@+id/stepCircleContainer"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp">
+    <!-- Scrollable Content Above Bottom Navigation -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNav"
+        android:fillViewport="true">
 
-        <ProgressBar
-            android:id="@+id/stepsCircle"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="232dp"
-            android:indeterminate="false"
-            android:max="10000"
-            android:progress="7250"
-            android:progressDrawable="@drawable/circular_progress" />
-
-        <TextView
-            android:id="@+id/tvStepsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="7,250"
-            android:textColor="#FFFFFF"
-            android:textSize="36sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvUnit"
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:text="  Steps"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp" />
-    </FrameLayout>
-
-    <!-- Stats Card -->
-    <LinearLayout
-        android:id="@+id/statsCard"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/stepCircleContainer"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/forgot_password_card_background"
-        android:elevation="6dp"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:id="@+id/stepsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="12,547"
-            android:textColor="#4CAF50"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="12dp"
-            android:text="Steps Today"
-            android:textColor="#000000"
-            android:textSize="14sp" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="12dp"
-            android:weightSum="3">
+            android:paddingBottom="140dp">
 
-            <TextView
-                android:id="@+id/distance"
-                android:layout_width="0dp"
+            <!-- Step Progress Circle -->
+            <FrameLayout
+                android:id="@+id/stepCircleContainer"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp">
+
+                <ProgressBar
+                    android:id="@+id/stepsCircle"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="232dp"
+                    android:indeterminate="false"
+                    android:max="10000"
+                    android:progress="7250"
+                    android:progressDrawable="@drawable/circular_progress" />
+
+                <TextView
+                    android:id="@+id/tvStepsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="7,250"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:text="Steps"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30sp" />
+            </FrameLayout>
+
+            <!-- Stats Card -->
+            <LinearLayout
+                android:id="@+id/statsCard"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Distance\n8.2 km"
-                android:textColor="#000000"
-                android:textSize="14sp" />
+                android:layout_below="@id/stepCircleContainer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/forgot_password_card_background"
+                android:elevation="6dp"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <TextView
-                android:id="@+id/duration"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Duration\n1:24:32"
-                android:textColor="#000000"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/stepsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="12,547"
+                    android:textColor="#4CAF50"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/calories"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Calories\n456"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp"
+                    android:text="Steps Today"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:weightSum="3">
 
+                    <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Distance\n8.2 km"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/duration"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Duration\n1:24:32"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/calories"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Calories\n456"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/pauseButton"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#00838F"
+                        android:text="Pause"
+                        android:textColor="#FFFFFF" />
+
+                    <Button
+                        android:id="@+id/finishButton"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#7B1FA2"
+                        android:text="Finish"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- See Map Button -->
             <Button
-                android:id="@+id/pauseButton"
-                android:layout_width="0dp"
+                android:id="@+id/btnSeeMap"
+                android:layout_width="335dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:backgroundTint="#00838F"
-                android:text="Pause"
-                android:textColor="#FFFFFF" />
+                android:layout_below="@id/statsCard"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/forgot_password_card_background"
+                android:elevation="8dp"
+                android:text="See Map"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/finishButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:backgroundTint="#7B1FA2"
-                android:text="Finish"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- See Map Button -->
-    <Button
-        android:id="@+id/btnSeeMap"
-        android:layout_width="335dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/statsCard"
-        android:layout_above="@id/diamondShadow"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="80dp"
-        android:background="@drawable/forgot_password_card_background"
-        android:elevation="8dp"
-        android:text="See Map"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="16sp" />
+        </RelativeLayout>
+    </ScrollView>
 
     <!-- Bottom Navigation -->
     <LinearLayout
@@ -295,5 +305,4 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="56dp" />
-
 </RelativeLayout>
