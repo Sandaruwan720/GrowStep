@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         navGroups = findViewById(R.id.nav_groups);
         navChallenges = findViewById(R.id.nav_challenges);
         navProfile = findViewById(R.id.nav_profile);
-        startButtonText = findViewById(R.id.textView3); // "Start" TextView acts as Start button
+        startButtonText = findViewById(R.id.startLabel); // "Start" TextView acts as Start button
 
         navHome.setOnClickListener(v ->
                 Toast.makeText(this, "You're already on Home", Toast.LENGTH_SHORT).show());

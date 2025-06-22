@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ public class StartWalkingActivity extends AppCompatActivity {
 
     private TextView stepsCount, distance, duration, calories;
     private Button pauseButton, finishButton, seeMapButton;
-    private TextView startButton; // this is textView3 in XML
+    private TextView startButton; // Start TextView
 
     private boolean isStarted = false;
     private boolean isPaused = false;
@@ -48,7 +49,7 @@ public class StartWalkingActivity extends AppCompatActivity {
         pauseButton = findViewById(R.id.pauseButton);
         finishButton = findViewById(R.id.finishButton);
         seeMapButton = findViewById(R.id.btnSeeMap);
-        startButton = findViewById(R.id.textView3); // Start TextView as button
+        startButton = findViewById(R.id.startLabel); // "Start" TextView acting as a button
 
         // Bottom Nav
         navHome = findViewById(R.id.nav_home);
@@ -56,6 +57,7 @@ public class StartWalkingActivity extends AppCompatActivity {
         navChallenges = findViewById(R.id.nav_challenges);
         navProfile = findViewById(R.id.nav_profile);
 
+        // Start Button
         startButton.setOnClickListener(v -> {
             if (!isStarted) {
                 isStarted = true;
@@ -66,6 +68,7 @@ public class StartWalkingActivity extends AppCompatActivity {
             }
         });
 
+        // Pause Button
         pauseButton.setOnClickListener(v -> {
             if (isStarted && !isPaused) {
                 isPaused = true;
@@ -77,6 +80,7 @@ public class StartWalkingActivity extends AppCompatActivity {
             }
         });
 
+        // Finish Button
         finishButton.setOnClickListener(v -> {
             if (isStarted) {
                 isStarted = false;
@@ -93,9 +97,13 @@ public class StartWalkingActivity extends AppCompatActivity {
             }
         });
 
-        seeMapButton.setOnClickListener(v ->
-                Toast.makeText(this, "Map View coming soon!", Toast.LENGTH_SHORT).show());
+        //  See Map Button - Navigate to SeeMapActivity
+        seeMapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(StartWalkingActivity.this, SeeMapActivity.class);
+            startActivity(intent);
+        });
 
+        // Bottom Nav Events
         navHome.setOnClickListener(v ->
                 Toast.makeText(this, "You're already on Home", Toast.LENGTH_SHORT).show());
 

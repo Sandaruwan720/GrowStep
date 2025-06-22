@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="#050505">
 
-
-
+    <!-- Step Progress Circle -->
     <FrameLayout
         android:id="@+id/stepCircleContainer"
         android:layout_width="260dp"
@@ -45,9 +44,7 @@
             android:textSize="30sp" />
     </FrameLayout>
 
-    <!-- Statistics Container -->
-
-
+    <!-- Stats Card -->
     <LinearLayout
         android:id="@+id/statsCard"
         android:layout_width="350dp"
@@ -55,10 +52,9 @@
         android:layout_below="@id/stepCircleContainer"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/forgot_password_card_background"
         android:elevation="6dp"
         android:orientation="vertical"
@@ -75,7 +71,6 @@
             android:textStyle="bold" />
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -123,7 +118,6 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,17 +147,16 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- See Map Button -->
     <Button
         android:id="@+id/btnSeeMap"
         android:layout_width="335dp"
-        android:layout_height="58dp"
-        android:layout_above="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="49dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/statsCard"
+        android:layout_above="@id/diamondShadow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/forgot_password_card_background"
         android:elevation="8dp"
         android:text="See Map"
@@ -171,6 +164,7 @@
         android:textColor="#000000"
         android:textSize="16sp" />
 
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
@@ -181,6 +175,7 @@
         android:padding="5dp"
         android:weightSum="4">
 
+        <!-- Home -->
         <LinearLayout
             android:id="@+id/nav_home"
             android:layout_width="0dp"
@@ -202,6 +197,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <!-- Groups -->
         <LinearLayout
             android:id="@+id/nav_groups"
             android:layout_width="0dp"
@@ -223,6 +219,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <!-- Challenges -->
         <LinearLayout
             android:id="@+id/nav_challenges"
             android:layout_width="0dp"
@@ -244,6 +241,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <!-- Profile -->
         <LinearLayout
             android:id="@+id/nav_profile"
             android:layout_width="0dp"
@@ -266,43 +264,36 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- Start Button and Shadow -->
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/diamondShadow"
+        android:layout_width="63dp"
         android:layout_height="63dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="170dp"
-        android:layout_marginEnd="177dp"
-        android:layout_marginBottom="36dp"
-        android:background="#050505"
-        android:rotation="45" />
+        android:layout_marginBottom="32dp"
+        android:rotation="45"
+        android:background="#050505" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/startDiamond"
         android:layout_width="54dp"
         android:layout_height="54dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="176dp"
-        android:layout_marginEnd="181dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="38dp"
         android:background="@drawable/diamond_button_bg"
         android:rotation="45" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/startLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="190dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="68dp"
         android:text="Start"
-        android:textColor="#F2E9E9" />
+        android:textColor="#F2E9E9"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="56dp" />
 
 </RelativeLayout>

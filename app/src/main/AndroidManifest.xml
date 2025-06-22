@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.s23010163.growstep">
 
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Required for Android 10+ if background location is used -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
+
     <application
         android:allowBackup="true"
         android:label="GrowStep"
@@ -10,30 +19,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GrowStep">
 
-        <!-- Launcher Activity -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <!-- Google Maps API Key (works with SupportMapFragment) -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDYBJNepivTh_el0hCPhoEk8637bdBHhS8" />
+
+        <!-- App Activities -->
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Login Activity -->
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".PersonalInfoActivity" /><!-- Added HomeActivity here -->
-        <activity android:name=".GroupsActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".Verification_code" />
         <activity android:name=".CreatePassword" />
+        <activity android:name=".PersonalInfoActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".GroupsActivity" />
         <activity android:name=".CreateGroupWalkActivity" />
         <activity android:name=".StartWalkingActivity" />
-
-
-
+        <activity android:name=".SeeMapActivity" />
 
     </application>
 </manifest>
