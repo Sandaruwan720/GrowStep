@@ -1,132 +1,190 @@
 package com.s23010163.growstep;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-public class StartWalkingActivity extends AppCompatActivity {
+public class StartWalkingActivity extends AppCompatActivity implements SensorEventListener {
 
-    private ProgressBar stepsCircle;
-    private TextView tvStepsCount;
-    private final int maxSteps = 10000;
-    private final int currentSteps = 7250;
-
-    private TextView stepsCount, distance, duration, calories;
-    private Button pauseButton, finishButton, seeMapButton;
-    private TextView startButton; // Start TextView
+    private SensorManager sensorManager;
+    private Sensor stepSensor;
 
     private boolean isStarted = false;
     private boolean isPaused = false;
 
-    LinearLayout navHome, navGroups, navChallenges, navProfile;
+    private int initialSteps = 0;
+    private int totalSteps = 0;
+
+    private long startTime = 0;
+    private long pausedTime = 0;
+    private long pausedDuration = 0;
+
+    private ProgressBar stepsCircle;
+    private TextView tvStepsCount, stepsCount, distance, duration, calories;
+    private Button pauseButton, finishButton, seeMapButton;
+    private TextView startButton;
+
+    private final int MAX_STEPS = 10000;
+    private final Handler timerHandler = new Handler();
+    private Runnable timerRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_walking);
 
-        // Step Progress View
+        // Bind views
         stepsCircle = findViewById(R.id.stepsCircle);
         tvStepsCount = findViewById(R.id.tvStepsCount);
-        stepsCircle.setMax(maxSteps);
-        animateSteps();
-
-        // Stats
         stepsCount = findViewById(R.id.stepsCount);
         distance = findViewById(R.id.distance);
         duration = findViewById(R.id.duration);
         calories = findViewById(R.id.calories);
-
-        // Buttons
         pauseButton = findViewById(R.id.pauseButton);
         finishButton = findViewById(R.id.finishButton);
         seeMapButton = findViewById(R.id.btnSeeMap);
-        startButton = findViewById(R.id.startLabel); // "Start" TextView acting as a button
+        startButton = findViewById(R.id.startLabel);
+        stepsCircle.setMax(MAX_STEPS);
 
-        // Bottom Nav
-        navHome = findViewById(R.id.nav_home);
-        navGroups = findViewById(R.id.nav_groups);
-        navChallenges = findViewById(R.id.nav_challenges);
-        navProfile = findViewById(R.id.nav_profile);
+        // Set up sensor
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (stepSensor == null) {
+            Toast.makeText(this, "Step Counter sensor not available", Toast.LENGTH_LONG).show();
+        }
 
-        // Start Button
         startButton.setOnClickListener(v -> {
             if (!isStarted) {
                 isStarted = true;
                 isPaused = false;
-                Toast.makeText(this, "Walking started!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Already started", Toast.LENGTH_SHORT).show();
+                initialSteps = 0;
+                totalSteps = 0;
+                pausedDuration = 0;
+                startTime = SystemClock.elapsedRealtime();
+                pausedTime = 0;
+
+                resetUI();
+
+                startTimer();
+                Toast.makeText(this, "Walk started", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Pause Button
         pauseButton.setOnClickListener(v -> {
             if (isStarted && !isPaused) {
                 isPaused = true;
-                Toast.makeText(this, "Paused", Toast.LENGTH_SHORT).show();
-            } else if (!isStarted) {
-                Toast.makeText(this, "Start walk first!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Already paused", Toast.LENGTH_SHORT).show();
+                pausedTime = SystemClock.elapsedRealtime();
+                stopTimer();
+                Toast.makeText(this, "Walk paused", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Finish Button
         finishButton.setOnClickListener(v -> {
             if (isStarted) {
                 isStarted = false;
                 isPaused = false;
+                stopTimer();
+                updateStats();    // final update
                 Toast.makeText(this, "Walk finished", Toast.LENGTH_SHORT).show();
-                stepsCount.setText("0");
-                distance.setText("Distance\n0.0 km");
-                duration.setText("Duration\n00:00:00");
-                calories.setText("Calories\n0");
-                stepsCircle.setProgress(0);
-                tvStepsCount.setText("0");
-            } else {
-                Toast.makeText(this, "Start walk first!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        //  See Map Button - Navigate to SeeMapActivity
-        seeMapButton.setOnClickListener(v -> {
-            Intent intent = new Intent(StartWalkingActivity.this, SeeMapActivity.class);
-            startActivity(intent);
-        });
-
-        // Bottom Nav Events
-        navHome.setOnClickListener(v ->
-                Toast.makeText(this, "You're already on Home", Toast.LENGTH_SHORT).show());
-
-        navGroups.setOnClickListener(v -> {
-            Intent intent = new Intent(StartWalkingActivity.this, GroupsActivity.class);
-            startActivity(intent);
-        });
-
-        navChallenges.setOnClickListener(v ->
-                Toast.makeText(this, "Challenges Clicked", Toast.LENGTH_SHORT).show());
-
-        navProfile.setOnClickListener(v ->
-                Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show());
+        seeMapButton.setOnClickListener(v ->
+                startActivity(new Intent(this, SeeMapActivity.class)));
     }
 
-    private void animateSteps() {
-        ObjectAnimator animator = ObjectAnimator.ofInt(stepsCircle, "progress", 0, currentSteps);
-        animator.setDuration(1500);
-        animator.start();
-
-        new Handler().postDelayed(() -> {
-            tvStepsCount.setText(String.format("%,d", currentSteps));
-            stepsCount.setText(String.format("%,d", currentSteps));
-        }, 1500);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (stepSensor != null) {
+            // fast updates
+            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_GAME);
+        }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (stepSensor != null) {
+            sensorManager.unregisterListener(this);
+        }
+        stopTimer(); // stop when pause app
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (isStarted && !isPaused) {
+            if (initialSteps == 0) {
+                initialSteps = (int) event.values[0];
+            }
+            totalSteps = (int) event.values[0] - initialSteps;
+
+            tvStepsCount.setText(String.valueOf(totalSteps));
+            stepsCount.setText(String.valueOf(totalSteps));
+            stepsCircle.setProgress(totalSteps);
+
+            updateStats();
+        }
+    }
+
+    private void updateStats() {
+        float distKm = totalSteps * 0.0008f;
+        float cal = totalSteps * 0.04f;
+
+        long now = SystemClock.elapsedRealtime();
+        long effectiveElapsed = now - startTime - pausedDuration;
+        if (isPaused) {
+            effectiveElapsed = pausedTime - startTime - pausedDuration;
+            pausedDuration += now - pausedTime;
+        }
+
+        int hrs = (int) (effectiveElapsed / 3600000);
+        int mins = (int) ((effectiveElapsed % 3600000) / 60000);
+        int secs = (int) ((effectiveElapsed % 60000) / 1000);
+
+        distance.setText(String.format("Distance\n%.2f km", distKm));
+        calories.setText(String.format("Calories\n%d", Math.round(cal)));
+        duration.setText(String.format("Duration\n%02d:%02d:%02d", hrs, mins, secs));
+    }
+
+    private void startTimer() {
+        timerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (isStarted && !isPaused) {
+                    updateStats();
+                    timerHandler.postDelayed(this, 1000);
+                }
+            }
+        };
+        timerHandler.post(timerRunnable);
+    }
+
+    private void stopTimer() {
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    private void resetUI() {
+        tvStepsCount.setText("0");
+        stepsCount.setText("0");
+        stepsCircle.setProgress(0);
+        distance.setText("Distance\n0.00 km");
+        calories.setText("Calories\n0");
+        duration.setText("Duration\n00:00:00");
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 }
