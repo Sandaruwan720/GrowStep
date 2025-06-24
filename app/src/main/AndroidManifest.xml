@@ -47,6 +47,8 @@
         <activity android:name=".CreateGroupWalkActivity" />
         <activity android:name=".StartWalkingActivity" />
         <activity android:name=".SeeMapActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".HistoryActivity" />
 
     </application>
 </manifest>

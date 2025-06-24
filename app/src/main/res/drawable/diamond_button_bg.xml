@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <!-- Use tintable color here -->
+    <corners android:radius="12dp"/>
+
     <gradient
         android:startColor="#2EC6E8"
         android:endColor="#0D3BAE"
@@ -11,5 +14,7 @@
 
         android:pathData="M 60 0 L 120 60 L 60 120 L 0 60 Z"
         />
-    <corners android:radius="5dp"/>
+
+
+
 </shape>

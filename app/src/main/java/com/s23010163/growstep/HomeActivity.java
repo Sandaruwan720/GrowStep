@@ -53,9 +53,14 @@ public class HomeActivity extends AppCompatActivity {
         navProfile.setOnClickListener(v ->
                 Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show());
 
+
         // Start Button Logic
         startButtonText.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, StartWalkingActivity.class);
+            startActivity(intent);
+        });
+        navProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
     }
