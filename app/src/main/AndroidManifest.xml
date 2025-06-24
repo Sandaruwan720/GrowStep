@@ -49,6 +49,8 @@
         <activity android:name=".SeeMapActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".HistoryActivity" />
+        <activity android:name=".ChallengesActivity" />
+
 
     </application>
 </manifest>

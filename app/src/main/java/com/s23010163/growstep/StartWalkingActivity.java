@@ -40,6 +40,9 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
     private final Handler timerHandler = new Handler();
     private Runnable timerRunnable;
 
+    // Bottom navigation
+    private LinearLayout navHome, navGroups, navChallenges, navProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +61,37 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
         startButton = findViewById(R.id.startLabel);
         stepsCircle.setMax(MAX_STEPS);
 
-        // Set up sensor
+        // Navigation setup
+        navHome = findViewById(R.id.nav_home);
+        navGroups = findViewById(R.id.nav_groups);
+        navChallenges = findViewById(R.id.nav_challenges);
+        navProfile = findViewById(R.id.nav_profile);
+
+        navHome.setOnClickListener(v -> {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        navGroups.setOnClickListener(v -> {
+            Intent intent = new Intent(this, GroupsActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        navChallenges.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChallengesActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        navProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        // Sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (stepSensor == null) {
@@ -76,8 +109,8 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
                 pausedTime = 0;
 
                 resetUI();
-
                 startTimer();
+
                 Toast.makeText(this, "Walk started", Toast.LENGTH_SHORT).show();
             }
         });
@@ -96,20 +129,21 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
                 isStarted = false;
                 isPaused = false;
                 stopTimer();
-                updateStats();    // final update
+                updateStats(); // final update
                 Toast.makeText(this, "Walk finished", Toast.LENGTH_SHORT).show();
             }
         });
 
-        seeMapButton.setOnClickListener(v ->
-                startActivity(new Intent(this, SeeMapActivity.class)));
+        seeMapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SeeMapActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (stepSensor != null) {
-            // fast updates
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_GAME);
         }
     }
@@ -120,7 +154,7 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
         if (stepSensor != null) {
             sensorManager.unregisterListener(this);
         }
-        stopTimer(); // stop when pause app
+        stopTimer(); // stop when paused
     }
 
     @Override
@@ -186,5 +220,7 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Not used
+    }
 }

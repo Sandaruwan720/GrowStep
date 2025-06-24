@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GroupsActivity extends AppCompatActivity {
@@ -17,32 +17,43 @@ public class GroupsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
 
+        // Bottom nav bar buttons
         navHome = findViewById(R.id.nav_home);
         navGroups = findViewById(R.id.nav_groups);
         navChallenges = findViewById(R.id.nav_challenges);
         navProfile = findViewById(R.id.nav_profile);
 
-        // Bottom navigation bar handlers
+        // Navigation handling
         navHome.setOnClickListener(v -> {
             Intent intent = new Intent(GroupsActivity.this, HomeActivity.class);
             startActivity(intent);
+            finish();
         });
 
-        navGroups.setOnClickListener(v ->
-                Toast.makeText(this, "You're already on Groups", Toast.LENGTH_SHORT).show());
+        navGroups.setOnClickListener(v -> {
+            // Already on Groups
+        });
 
-        navChallenges.setOnClickListener(v ->
-                Toast.makeText(this, "Challenges clicked", Toast.LENGTH_SHORT).show());
+        navChallenges.setOnClickListener(v -> {
+            Intent intent = new Intent(GroupsActivity.this, ChallengesActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
-        navProfile.setOnClickListener(v ->
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show());
+        navProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(GroupsActivity.this, ProfileActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
-        // Start button (center diamond)
+        // Floating center start button
         TextView startLabel = findViewById(R.id.startLabel);
-        startLabel.setOnClickListener(v ->
-                Toast.makeText(this, "Start clicked", Toast.LENGTH_SHORT).show());
+        startLabel.setOnClickListener(v -> {
+            Intent intent = new Intent(GroupsActivity.this, StartWalkingActivity.class);
+            startActivity(intent);
+        });
 
-
+        // "Create Group" button
         Button createGroupButton = findViewById(R.id.createGroup);
         createGroupButton.setOnClickListener(v -> {
             Intent intent = new Intent(GroupsActivity.this, CreateGroupWalkActivity.class);

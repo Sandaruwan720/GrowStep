@@ -204,19 +204,23 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!-- Bottom Navigation Bar -->
     <Button
         android:id="@+id/createGroup"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="55dp"
         android:layout_marginLeft="55dp"
         android:layout_marginTop="550dp"
+        android:layout_marginEnd="56dp"
         android:background="@drawable/forgot_password_button_gradient"
         android:backgroundTint="#942F2F"
         android:text="Create New Group"
         android:textAllCaps="false"
         android:textColor="#FFFFFF" />
 
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
@@ -326,7 +330,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="32dp"
         android:rotation="45"
-        android:background="#2E2A41" />
+        android:background="#211F22" />
 
     <TextView
         android:id="@+id/startDiamond"

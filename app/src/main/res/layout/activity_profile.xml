@@ -388,7 +388,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="32dp"
         android:rotation="45"
-        android:background="#2E2A41" />
+        android:background="#240D3E" />
 
     <TextView
         android:id="@+id/textView3"
