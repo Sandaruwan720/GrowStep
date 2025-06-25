@@ -6,6 +6,7 @@
     android:padding="16dp">
 
     <LinearLayout
+        android:id="@+id/rootHistoryLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -50,6 +51,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tvTotalSteps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="456"
@@ -77,6 +79,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tvTotalDistance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.34Km"
@@ -104,6 +107,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tvTotalCalories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23"
@@ -131,6 +135,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tvAvgSteps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="288"
@@ -158,6 +163,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tvBestSession"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="435"
@@ -185,6 +191,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/tvTotalSessions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2"

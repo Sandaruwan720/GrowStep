@@ -16,6 +16,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.SharedPreferences;
+
 public class StartWalkingActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
@@ -139,6 +145,20 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
                     .putFloat("today_distance", distKm)
                     .putFloat("today_calories", cal)
                     .apply();
+                // Save session to history
+                try {
+                    JSONObject session = new JSONObject();
+                    session.put("steps", totalSteps);
+                    session.put("distance", distKm);
+                    session.put("calories", cal);
+                    SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                    String historyJson = prefs.getString("session_history", "[]");
+                    JSONArray history = new JSONArray(historyJson);
+                    history.put(session);
+                    prefs.edit().putString("session_history", history.toString()).apply();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(this, "Walk finished", Toast.LENGTH_SHORT).show();
             }
         });

@@ -19,7 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     private final int currentSteps = 7250;
 
     private LinearLayout navHome, navGroups, navChallenges, navProfile;
-    private TextView startButtonText, tvGreeting;
+    private TextView startButtonText, tvGreeting, tvStepsDetail, tvDistance, tvCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +39,27 @@ public class HomeActivity extends AppCompatActivity {
         navProfile = findViewById(R.id.nav_profile);
         startButtonText = findViewById(R.id.startLabel); // Start text/button
         tvGreeting = findViewById(R.id.tvGreeting);
+        tvStepsDetail = findViewById(R.id.tvStepsDetail);
+        tvDistance = findViewById(R.id.tvDistance);
+        tvCalories = findViewById(R.id.tvCalories);
 
         // Set greeting with username from SharedPreferences
         String username = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
         if (!username.isEmpty()) {
             tvGreeting.setText("Hello, " + username + "!");
         }
+
+        // Load today's stats from SharedPreferences
+        int todaySteps = getSharedPreferences("user_prefs", MODE_PRIVATE).getInt("today_steps", 0);
+        float todayDistance = getSharedPreferences("user_prefs", MODE_PRIVATE).getFloat("today_distance", 0f);
+        float todayCalories = getSharedPreferences("user_prefs", MODE_PRIVATE).getFloat("today_calories", 0f);
+
+        // Update UI
+        tvStepsCount.setText(String.valueOf(todaySteps));
+        stepsCircle.setProgress(todaySteps);
+        tvStepsDetail.setText(String.valueOf(todaySteps));
+        tvDistance.setText(String.format("%.2f km", todayDistance));
+        tvCalories.setText(String.format("%d kcal", Math.round(todayCalories)));
 
         // Navigation logic
         navHome.setOnClickListener(v -> {
