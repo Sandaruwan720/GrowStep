@@ -66,6 +66,11 @@ public class SignupActivity extends Activity {
             }
             boolean success = dbHelper.registerUser(username, email, password);
             if (success) {
+                // Save username to SharedPreferences
+                getSharedPreferences("user_prefs", MODE_PRIVATE)
+                    .edit()
+                    .putString("username", username)
+                    .apply();
                 Toast.makeText(this, "Sign up successful!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SignupActivity.this, PersonalInfoActivity.class);
                 startActivity(intent);

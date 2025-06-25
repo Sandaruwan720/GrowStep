@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 public class PersonalInfoActivity extends Activity {
 
-    EditText inputGender, inputAge, inputHeight, inputWeight;
+    EditText inputFullName, inputGender, inputAge, inputHeight, inputWeight;
     Button btnContinue;
 
     @Override
@@ -17,6 +17,7 @@ public class PersonalInfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
 
+        inputFullName = findViewById(R.id.inputFullName);
         inputGender = findViewById(R.id.inputGender);
         inputAge = findViewById(R.id.inputAge);
         inputHeight = findViewById(R.id.inputHeight);
@@ -24,13 +25,14 @@ public class PersonalInfoActivity extends Activity {
         btnContinue = findViewById(R.id.btnContinue);
 
         btnContinue.setOnClickListener(view -> {
+            String fullName = inputFullName.getText().toString().trim();
             String gender = inputGender.getText().toString().trim().toLowerCase();
             String ageStr = inputAge.getText().toString().trim();
             String heightStr = inputHeight.getText().toString().trim();
             String weightStr = inputWeight.getText().toString().trim();
 
             // Validate empty fields
-            if (gender.isEmpty() || ageStr.isEmpty() || heightStr.isEmpty() || weightStr.isEmpty()) {
+            if (fullName.isEmpty() || gender.isEmpty() || ageStr.isEmpty() || heightStr.isEmpty() || weightStr.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -58,17 +60,21 @@ public class PersonalInfoActivity extends Activity {
                 Toast.makeText(this, "Values must be greater than 0.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            btnContinue.setOnClickListener(v -> {
-                // Navigate to SignupActivity
-                Intent intent = new Intent(PersonalInfoActivity.this, HomeActivity.class);
-                startActivity(intent);
-            });
+
+            // Save full name to SharedPreferences
+            getSharedPreferences("user_prefs", MODE_PRIVATE)
+                .edit()
+                .putString("full_name", fullName)
+                .apply();
 
             // Success
             String result = "Saved: Gender: " + gender + "\nAge: " + age + "\nHeight: " + height + " cm\nWeight: " + weight + " kg";
             Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
-            // TODO: Save or send data to next activity
+            // Navigate to HomeActivity
+            Intent intent = new Intent(PersonalInfoActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

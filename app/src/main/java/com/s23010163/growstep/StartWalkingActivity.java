@@ -130,6 +130,15 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
                 isPaused = false;
                 stopTimer();
                 updateStats(); // final update
+                // Save today's stats to SharedPreferences
+                float distKm = totalSteps * 0.0008f;
+                float cal = totalSteps * 0.04f;
+                getSharedPreferences("user_prefs", MODE_PRIVATE)
+                    .edit()
+                    .putInt("today_steps", totalSteps)
+                    .putFloat("today_distance", distKm)
+                    .putFloat("today_calories", cal)
+                    .apply();
                 Toast.makeText(this, "Walk finished", Toast.LENGTH_SHORT).show();
             }
         });

@@ -14,16 +14,24 @@ public class HistoryActivity extends AppCompatActivity {
             "Best Session", "Total Sessions"
     };
 
-    String[] values = {
-            "456", "0.34Km",
-            "23", "288",
-            "435", "2"
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        // Get today's stats from SharedPreferences
+        int todaySteps = getSharedPreferences("user_prefs", MODE_PRIVATE).getInt("today_steps", 0);
+        float todayDistance = getSharedPreferences("user_prefs", MODE_PRIVATE).getFloat("today_distance", 0f);
+        float todayCalories = getSharedPreferences("user_prefs", MODE_PRIVATE).getFloat("today_calories", 0f);
+
+        String[] values = {
+            String.valueOf(todaySteps),
+            String.format("%.2fKm", todayDistance),
+            String.valueOf(Math.round(todayCalories)),
+            "288",
+            "435",
+            "2"
+        };
 
         // Dynamically set data for each stat card
         for (int i = 0; i < titles.length; i++) {

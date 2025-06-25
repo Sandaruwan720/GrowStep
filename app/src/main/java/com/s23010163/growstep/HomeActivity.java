@@ -19,7 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     private final int currentSteps = 7250;
 
     private LinearLayout navHome, navGroups, navChallenges, navProfile;
-    private TextView startButtonText;
+    private TextView startButtonText, tvGreeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,13 @@ public class HomeActivity extends AppCompatActivity {
         navChallenges = findViewById(R.id.nav_challenges);
         navProfile = findViewById(R.id.nav_profile);
         startButtonText = findViewById(R.id.startLabel); // Start text/button
+        tvGreeting = findViewById(R.id.tvGreeting);
+
+        // Set greeting with username from SharedPreferences
+        String username = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
+        if (!username.isEmpty()) {
+            tvGreeting.setText("Hello, " + username + "!");
+        }
 
         // Navigation logic
         navHome.setOnClickListener(v -> {

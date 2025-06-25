@@ -15,6 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
     private LinearLayout navHome, navGroups, navChallenges, navProfile;
     private Button btnHistory;
     private TextView startLabel;
+    private TextView profileIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +29,31 @@ public class ProfileActivity extends AppCompatActivity {
         numberDistance = findViewById(R.id.Nupberdistance);
         numberGroupWalks = findViewById(R.id.NupberGroupsWalked);
         numberCalories = findViewById(R.id.NupberCalories);
+        profileIcon = findViewById(R.id.profileIcon);
+
+        // Get full name from SharedPreferences
+        String fullName = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("full_name", "");
+        if (!fullName.isEmpty()) {
+            tvUserName.setText(fullName);
+            // Set initials
+            String[] parts = fullName.trim().split("\\s+");
+            String initials = "";
+            if (parts.length > 0) initials += parts[0].substring(0, 1).toUpperCase();
+            if (parts.length > 1) initials += parts[1].substring(0, 1).toUpperCase();
+            profileIcon.setText(initials);
+        }
+
+        // Update stats with today's data from SharedPreferences
+        int todaySteps = getSharedPreferences("user_prefs", MODE_PRIVATE).getInt("today_steps", 0);
+        float todayDistance = getSharedPreferences("user_prefs", MODE_PRIVATE).getFloat("today_distance", 0f);
+        float todayCalories = getSharedPreferences("user_prefs", MODE_PRIVATE).getFloat("today_calories", 0f);
+        numberSteps.setText(String.valueOf(todaySteps));
+        numberDistance.setText(String.format("%.2f km", todayDistance));
+        numberCalories.setText(String.valueOf(Math.round(todayCalories)));
 
         // Set static values
-        tvUserName.setText("Tharuka Sandaruwan");
         tvUserLevel.setText("Level 8 Walker • 2,450 points");
-        numberSteps.setText("56,847");
-        numberDistance.setText("42.3 km");
         numberGroupWalks.setText("12");
-        numberCalories.setText("2,847");
 
         // Bottom Navigation bar
         navHome = findViewById(R.id.nav_home);
