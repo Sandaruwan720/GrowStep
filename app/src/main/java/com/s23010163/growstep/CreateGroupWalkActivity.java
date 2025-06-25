@@ -89,6 +89,22 @@ public class CreateGroupWalkActivity extends AppCompatActivity {
             // Success
             Toast.makeText(this, "Group Created!", Toast.LENGTH_SHORT).show();
 
+            // Save group to SharedPreferences
+            try {
+                android.content.SharedPreferences prefs = getSharedPreferences("groups_prefs", MODE_PRIVATE);
+                String groupsJson = prefs.getString("groups_list", "[]");
+                org.json.JSONArray groupsArray = new org.json.JSONArray(groupsJson);
+                org.json.JSONObject groupObj = new org.json.JSONObject();
+                groupObj.put("name", name);
+                groupObj.put("time", time);
+                groupObj.put("participants", participantCount);
+                groupObj.put("route", walkRoute);
+                groupsArray.put(groupObj);
+                prefs.edit().putString("groups_list", groupsArray.toString()).apply();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             // Navigate to GroupsActivity
             Intent intent = new Intent(CreateGroupWalkActivity.this, GroupsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

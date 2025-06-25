@@ -33,176 +33,21 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <!-- Morning Walk Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardMorning"
+    <!-- Dynamic Groups List -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:layout_below="@id/header"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="6dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        >
-
+        android:overScrollMode="ifContentScrolls">
         <LinearLayout
-            android:background="@drawable/walking_group_backgroundcolor"
+            android:id="@+id/groupsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Morning Fitness Walk"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Central Park Route • 5.2 km"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
-
-            <!-- Day Tags -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/group_members_name_color"
-                    android:text="S"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:background="@drawable/group_members_name_color"
-                    android:text="M"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:background="@drawable/group_members_name_color"
-                    android:text="J"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="35dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:background="@drawable/group_members_name_color"
-                    android:text="+2"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Starts at 6:00 AM"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Evening Walk Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardEvening"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cardMorning"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="6dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        >
-
-        <LinearLayout
-            android:background="@drawable/walking_group_backgroundcolor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Evening Stroll"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Riverside Path • 3.8 km"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
-
-            <!-- Participant Tags -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/group_members_name_color"
-                    android:text="K"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:background="@drawable/group_members_name_color"
-                    android:text="A"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Starts at 6:00 PM"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp" />
-
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
+            android:orientation="vertical" />
+    </ScrollView>
 
     <!-- Bottom Navigation Bar -->
     <Button
@@ -230,7 +75,6 @@
         android:orientation="horizontal"
         android:padding="5dp"
         android:weightSum="4">
-
         <!-- Home -->
         <LinearLayout
             android:id="@+id/nav_home"
@@ -239,12 +83,10 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_home" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -252,7 +94,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <!-- Groups -->
         <LinearLayout
             android:id="@+id/nav_groups"
@@ -261,12 +102,10 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_group" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -274,7 +113,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <!-- Challenges -->
         <LinearLayout
             android:id="@+id/nav_challenges"
@@ -283,12 +121,10 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_challenge" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -296,7 +132,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <!-- Profile -->
         <LinearLayout
             android:id="@+id/nav_profile"
@@ -305,12 +140,10 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_profile" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -318,7 +151,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
-
     </LinearLayout>
 
     <!-- Start Button and Shadow -->
@@ -331,7 +163,6 @@
         android:layout_marginBottom="32dp"
         android:rotation="45"
         android:background="#211F22" />
-
     <TextView
         android:id="@+id/startDiamond"
         android:layout_width="54dp"
@@ -341,7 +172,6 @@
         android:layout_marginBottom="38dp"
         android:background="@drawable/diamond_button_bg"
         android:rotation="45" />
-
     <TextView
         android:id="@+id/startLabel"
         android:layout_width="wrap_content"
@@ -352,7 +182,4 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="56dp" />
-
-
-
 </RelativeLayout>
