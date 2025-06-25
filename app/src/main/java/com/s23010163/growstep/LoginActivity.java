@@ -31,12 +31,15 @@ public class LoginActivity extends AppCompatActivity {
 
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
-            } else if (username.equals("admin") && password.equals("1234")) {
-                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                finish();
             } else {
-                Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+                if (dbHelper.validateUser(username, password)) {
+                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -58,13 +58,20 @@ public class SignupActivity extends Activity {
                 return;
             }
 
-            // Success - you can add further signup logic here (e.g., save to DB)
-
-            Toast.makeText(this, "Sign up successful!", Toast.LENGTH_SHORT).show();
-
-            // Navigate to next activity, if any
-            Intent intent = new Intent(SignupActivity.this, PersonalInfoActivity.class);
-            startActivity(intent);
+            // Integrate with SQLite DB
+            UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+            if (dbHelper.userExists(username)) {
+                Toast.makeText(this, "Username already exists!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            boolean success = dbHelper.registerUser(username, email, password);
+            if (success) {
+                Toast.makeText(this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SignupActivity.this, PersonalInfoActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Sign up failed. Try again.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
