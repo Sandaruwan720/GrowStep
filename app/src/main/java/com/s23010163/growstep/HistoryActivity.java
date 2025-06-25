@@ -10,6 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -77,5 +84,58 @@ public class HistoryActivity extends AppCompatActivity {
         todayDetails.setTextColor(0xFFFFFFFF);
         todayDetails.setTextSize(16);
         rootLayout.addView(todayDetails);
+
+        // Show charts for last 10 sessions
+        LineChart stepsChart = findViewById(R.id.stepsChart);
+        LineChart caloriesChart = findViewById(R.id.caloriesChart);
+        ArrayList<Entry> stepEntries = new ArrayList<>();
+        ArrayList<Entry> calorieEntries = new ArrayList<>();
+        try {
+            JSONArray history = new JSONArray(historyJson);
+            int startIdx = Math.max(0, history.length() - 10);
+            for (int i = startIdx; i < history.length(); i++) {
+                JSONObject session = history.getJSONObject(i);
+                int steps = session.optInt("steps", 0);
+                float calories = (float) session.optDouble("calories", 0f);
+                stepEntries.add(new Entry(i - startIdx + 1, steps));
+                calorieEntries.add(new Entry(i - startIdx + 1, calories));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // Steps chart
+        LineDataSet stepDataSet = new LineDataSet(stepEntries, "Steps");
+        stepDataSet.setColor(0xFF4CAF50);
+        stepDataSet.setCircleColor(0xFF4CAF50);
+        stepDataSet.setValueTextColor(0xFFFFFFFF);
+        stepDataSet.setLineWidth(2f);
+        stepDataSet.setCircleRadius(4f);
+        stepDataSet.setDrawValues(false);
+        LineData stepLineData = new LineData(stepDataSet);
+        stepsChart.setData(stepLineData);
+        stepsChart.getDescription().setEnabled(false);
+        stepsChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        stepsChart.getAxisLeft().setTextColor(0xFFFFFFFF);
+        stepsChart.getAxisRight().setEnabled(false);
+        stepsChart.getXAxis().setTextColor(0xFFFFFFFF);
+        stepsChart.getLegend().setTextColor(0xFFFFFFFF);
+        stepsChart.invalidate();
+        // Calories chart
+        LineDataSet calorieDataSet = new LineDataSet(calorieEntries, "Calories");
+        calorieDataSet.setColor(0xFFFF9800);
+        calorieDataSet.setCircleColor(0xFFFF9800);
+        calorieDataSet.setValueTextColor(0xFFFFFFFF);
+        calorieDataSet.setLineWidth(2f);
+        calorieDataSet.setCircleRadius(4f);
+        calorieDataSet.setDrawValues(false);
+        LineData calorieLineData = new LineData(calorieDataSet);
+        caloriesChart.setData(calorieLineData);
+        caloriesChart.getDescription().setEnabled(false);
+        caloriesChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        caloriesChart.getAxisLeft().setTextColor(0xFFFFFFFF);
+        caloriesChart.getAxisRight().setEnabled(false);
+        caloriesChart.getXAxis().setTextColor(0xFFFFFFFF);
+        caloriesChart.getLegend().setTextColor(0xFFFFFFFF);
+        caloriesChart.invalidate();
     }
 }

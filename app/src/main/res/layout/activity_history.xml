@@ -218,7 +218,8 @@
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
-            <View
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/stepsChart"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@drawable/forgot_password_card_background" />
@@ -242,10 +243,11 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"/>
 
-            <View
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/caloriesChart"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@drawable/forgot_password_card_background"/>
+                android:background="@drawable/forgot_password_card_background" />
         </LinearLayout>
 
     </LinearLayout>
