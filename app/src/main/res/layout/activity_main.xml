@@ -21,11 +21,11 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="244dp"
+            android:layout_height="301dp"
             android:contentDescription="GrowStep Logo"
-            android:src="@drawable/growstep_logo"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/growstep_logo" />
     </LinearLayout>
 
     <!-- App Name -->

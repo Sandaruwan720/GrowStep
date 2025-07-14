@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:label="GrowStep"
         android:icon="@drawable/app_icon"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/growstep_background_app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.GrowStep">
 
