@@ -86,24 +86,26 @@ public class CreateGroupWalkActivity extends AppCompatActivity {
                 return;
             }
 
+            // Save group to database
+            try {
+                UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+                boolean success = dbHelper.insertGroup(name, time, participantCount, walkRoute);
+                if (!success) {
+                    Toast.makeText(this, "Failed to create group in database!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Database error!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Success
             Toast.makeText(this, "Group Created!", Toast.LENGTH_SHORT).show();
 
-            // Save group to SharedPreferences
-            try {
-                android.content.SharedPreferences prefs = getSharedPreferences("groups_prefs", MODE_PRIVATE);
-                String groupsJson = prefs.getString("groups_list", "[]");
-                org.json.JSONArray groupsArray = new org.json.JSONArray(groupsJson);
-                org.json.JSONObject groupObj = new org.json.JSONObject();
-                groupObj.put("name", name);
-                groupObj.put("time", time);
-                groupObj.put("participants", participantCount);
-                groupObj.put("route", walkRoute);
-                groupsArray.put(groupObj);
-                prefs.edit().putString("groups_list", groupsArray.toString()).apply();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // Show database location
+            String dbPath = getDatabasePath("ue3.db").getAbsolutePath();
+            Toast.makeText(this, "Database location: " + dbPath, Toast.LENGTH_LONG).show();
 
             // Navigate to GroupsActivity
             Intent intent = new Intent(CreateGroupWalkActivity.this, GroupsActivity.class);

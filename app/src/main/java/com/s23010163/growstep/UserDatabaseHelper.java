@@ -8,12 +8,18 @@ import android.database.Cursor;
 
 public class UserDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ue3.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
+    public static final String TABLE_GROUPS = "groups";
+    public static final String COLUMN_GROUP_ID = "id";
+    public static final String COLUMN_GROUP_NAME = "name";
+    public static final String COLUMN_GROUP_TIME = "time";
+    public static final String COLUMN_GROUP_PARTICIPANTS = "participants";
+    public static final String COLUMN_GROUP_ROUTE = "route";
 
     public UserDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,11 +33,20 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_EMAIL + " TEXT, "
                 + COLUMN_PASSWORD + " TEXT)";
         db.execSQL(CREATE_USERS_TABLE);
+
+        String CREATE_GROUPS_TABLE = "CREATE TABLE " + TABLE_GROUPS + " ("
+                + COLUMN_GROUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_GROUP_NAME + " TEXT, "
+                + COLUMN_GROUP_TIME + " TEXT, "
+                + COLUMN_GROUP_PARTICIPANTS + " INTEGER, "
+                + COLUMN_GROUP_ROUTE + " TEXT)";
+        db.execSQL(CREATE_GROUPS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUPS);
         onCreate(db);
     }
 
@@ -69,5 +84,24 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return exists;
+    }
+
+    // Insert a new group
+    public boolean insertGroup(String name, String time, int participants, String route) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_GROUP_NAME, name);
+        values.put(COLUMN_GROUP_TIME, time);
+        values.put(COLUMN_GROUP_PARTICIPANTS, participants);
+        values.put(COLUMN_GROUP_ROUTE, route);
+        long result = db.insert(TABLE_GROUPS, null, values);
+        db.close();
+        return result != -1;
+    }
+
+    // Get all groups
+    public Cursor getAllGroups() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_GROUPS, null, null, null, null, null, null);
     }
 } 
