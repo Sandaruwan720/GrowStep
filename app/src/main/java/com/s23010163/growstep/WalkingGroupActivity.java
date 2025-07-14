@@ -45,6 +45,33 @@ public class WalkingGroupActivity extends AppCompatActivity {
             tvMorningFitnessWalk.setText(groupName + " Fitness Walk");
             tvWalkingWithFriends.setText("Walking with " + groupParticipants + " friends in " + groupName);
         }
+
+        // Show group members
+        int groupId = intent.getIntExtra("group_id", -1);
+        LinearLayout groupMembersContainer = findViewById(R.id.groupMembersContainer);
+        groupMembersContainer.removeAllViews();
+        if (groupId != -1) {
+            UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+            android.database.Cursor cursor = dbHelper.getGroupMembers(groupId);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String memberName = cursor.getString(cursor.getColumnIndexOrThrow(UserDatabaseHelper.COLUMN_MEMBER_USERNAME));
+                    TextView tvMember = new TextView(this);
+                    tvMember.setText("\u2022 " + memberName); // Bullet + name
+                    tvMember.setTextColor(getResources().getColor(android.R.color.black));
+                    tvMember.setTextSize(15f);
+                    tvMember.setBackgroundResource(R.drawable.walking_group_chip_bg);
+                    tvMember.setPadding(16, 8, 16, 8);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(0, 0, 16, 0);
+                    tvMember.setLayoutParams(params);
+                    groupMembersContainer.addView(tvMember);
+                } while (cursor.moveToNext());
+                cursor.close();
+            }
+        }
     }
 
     private void addMessage(String message) {

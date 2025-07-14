@@ -20,6 +20,9 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_GROUP_TIME = "time";
     public static final String COLUMN_GROUP_PARTICIPANTS = "participants";
     public static final String COLUMN_GROUP_ROUTE = "route";
+    public static final String TABLE_GROUP_MEMBERS = "group_members";
+    public static final String COLUMN_MEMBER_GROUP_ID = "group_id";
+    public static final String COLUMN_MEMBER_USERNAME = "username";
 
     public UserDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,12 +44,18 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_GROUP_PARTICIPANTS + " INTEGER, "
                 + COLUMN_GROUP_ROUTE + " TEXT)";
         db.execSQL(CREATE_GROUPS_TABLE);
+
+        String CREATE_GROUP_MEMBERS_TABLE = "CREATE TABLE " + TABLE_GROUP_MEMBERS + " ("
+                + COLUMN_MEMBER_GROUP_ID + " INTEGER, "
+                + COLUMN_MEMBER_USERNAME + " TEXT)";
+        db.execSQL(CREATE_GROUP_MEMBERS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUPS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP_MEMBERS);
         onCreate(db);
     }
 
@@ -97,6 +106,22 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_GROUPS, null, values);
         db.close();
         return result != -1;
+    }
+
+    // Add a user to a group
+    public void addGroupMember(int groupId, String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_MEMBER_GROUP_ID, groupId);
+        values.put(COLUMN_MEMBER_USERNAME, username);
+        db.insert(TABLE_GROUP_MEMBERS, null, values);
+        db.close();
+    }
+
+    // Get all members of a group
+    public Cursor getGroupMembers(int groupId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_GROUP_MEMBERS, null, COLUMN_MEMBER_GROUP_ID + "=?", new String[]{String.valueOf(groupId)}, null, null, null);
     }
 
     // Get all groups

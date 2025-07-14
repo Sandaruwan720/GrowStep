@@ -65,6 +65,7 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
+                    android:id="@+id/groupMembersContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">

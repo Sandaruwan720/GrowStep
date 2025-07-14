@@ -150,7 +150,21 @@ public class GroupsActivity extends AppCompatActivity {
                     btnJoin.setMinHeight(minButtonHeight);
                     btnJoin.setPadding(0, (int)(8 * getResources().getDisplayMetrics().density), 0, (int)(8 * getResources().getDisplayMetrics().density));
                     btnJoin.setOnClickListener(v -> {
+                        // Add current user as group member with error handling
+                        String username = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
+                        if (username == null || username.isEmpty()) {
+                            android.widget.Toast.makeText(this, "No user logged in!", android.widget.Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        try {
+                            UserDatabaseHelper db = new UserDatabaseHelper(this);
+                            db.addGroupMember(groupIndex, username);
+                        } catch (Exception e) {
+                            android.widget.Toast.makeText(this, "Failed to join group: " + e.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         Intent intent = new Intent(this, WalkingGroupActivity.class);
+                        intent.putExtra("group_id", groupIndex);
                         intent.putExtra("group_name", name);
                         intent.putExtra("group_participants", participants);
                         startActivity(intent);
