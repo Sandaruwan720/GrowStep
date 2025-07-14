@@ -14,6 +14,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView numberSteps, numberDistance, numberGroupWalks, numberCalories;
     private LinearLayout navHome, navGroups, navChallenges, navProfile;
     private Button btnHistory;
+    private Button btnRewards;
+    private Button btnFriends;
+    private Button btnAchievement;
     private TextView startLabel;
     private TextView profileIcon;
 
@@ -94,6 +97,21 @@ public class ProfileActivity extends AppCompatActivity {
         btnHistory = findViewById(R.id.btnHistory);
         btnHistory.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, HistoryActivity.class);
+            startActivity(intent);
+        });
+        btnRewards = findViewById(R.id.btnRewards);
+        btnRewards.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, RewardsActivity.class);
+            startActivity(intent);
+        });
+        btnFriends = findViewById(R.id.btnFriends);
+        btnFriends.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, FriendsActivity.class);
+            startActivity(intent);
+        });
+        btnAchievement= findViewById(R.id.btnAchievement);
+        btnAchievement.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, AchievementsActivity.class);
             startActivity(intent);
         });
     }

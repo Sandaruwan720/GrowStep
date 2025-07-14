@@ -50,6 +50,9 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".ChallengesActivity" />
+        <activity android:name=".RewardsActivity" />
+        <activity android:name=".AchievementsActivity" />
+        <activity android:name=".FriendsActivity" />
 
 
     </application>

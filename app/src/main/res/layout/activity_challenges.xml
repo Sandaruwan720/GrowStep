@@ -6,14 +6,16 @@
     android:background="#FFFFFF">
 
     <!-- Header Gradient -->
+
+
     <LinearLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:orientation="vertical"
+        android:background="@drawable/challenges_header_gradient"
         android:gravity="center_vertical"
-        android:padding="16dp"
-        android:background="@drawable/challenges_header_gradient">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tvTitle"
@@ -28,27 +30,28 @@
             android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Complete challenges to earn rewards"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
+            android:textSize="14sp" />
     </LinearLayout>
-
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerLayout"
         android:layout_above="@id/bottomNav"
+        android:layout_below="@id/headerLayout"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="-1dp"
         android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical">
 
             <!-- CARD 1 -->
             <LinearLayout
@@ -64,33 +67,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Weekly Step Goal"
-                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
                         android:textSize="16sp"
-                        android:textColor="#FFFFFF" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="Walk 50,000 steps this week"
                         android:textColor="#EEEEEE"
-                        android:textSize="14sp"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="14sp" />
 
                     <ProgressBar
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
-                        android:progress="65"
-                        android:max="100"
                         android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:progress="65"
                         android:progressDrawable="@drawable/challenges_progress_bar" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="8dp"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="0dp"
@@ -124,33 +127,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Social Walker"
-                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
                         android:textSize="16sp"
-                        android:textColor="#FFFFFF" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="Walk with friends 5 times this month"
                         android:textColor="#EEEEEE"
-                        android:textSize="14sp"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="14sp" />
 
                     <ProgressBar
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
-                        android:progress="40"
-                        android:max="100"
                         android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:progress="40"
                         android:progressDrawable="@drawable/challenges_progress_bar" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="8dp"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="0dp"
@@ -184,33 +187,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Explorer Badge"
-                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
                         android:textSize="16sp"
-                        android:textColor="#FFFFFF" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="Discover 3 new walking routes"
                         android:textColor="#EEEEEE"
-                        android:textSize="14sp"
-                        android:layout_marginTop="4dp" />
+                        android:textSize="14sp" />
 
                     <ProgressBar
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
-                        android:progress="33"
-                        android:max="100"
                         android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:progress="33"
                         android:progressDrawable="@drawable/challenges_progress_bar" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="8dp"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="0dp"
@@ -231,6 +234,7 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
