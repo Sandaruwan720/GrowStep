@@ -152,6 +152,7 @@ public class GroupsActivity extends AppCompatActivity {
                     btnJoin.setOnClickListener(v -> {
                         Intent intent = new Intent(this, WalkingGroupActivity.class);
                         intent.putExtra("group_name", name);
+                        intent.putExtra("group_participants", participants);
                         startActivity(intent);
                     });
                     buttonRow.addView(btnJoin);

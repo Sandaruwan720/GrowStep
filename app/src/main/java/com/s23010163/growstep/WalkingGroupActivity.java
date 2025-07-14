@@ -1,5 +1,6 @@
 package com.s23010163.growstep;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,6 +34,17 @@ public class WalkingGroupActivity extends AppCompatActivity {
                 messageInput.setText("");
             }
         });
+
+        // Update group name sections based on Intent extra
+        Intent intent = getIntent();
+        String groupName = intent.getStringExtra("group_name");
+        TextView tvMorningFitnessWalk = findViewById(R.id.tvMorningFitnessWalk);
+        TextView tvWalkingWithFriends = findViewById(R.id.tvWalkingWithFriends);
+        int groupParticipants = intent.getIntExtra("group_participants", 4);
+        if (groupName != null && !groupName.isEmpty()) {
+            tvMorningFitnessWalk.setText(groupName + " Fitness Walk");
+            tvWalkingWithFriends.setText("Walking with " + groupParticipants + " friends in " + groupName);
+        }
     }
 
     private void addMessage(String message) {

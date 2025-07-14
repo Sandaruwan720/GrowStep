@@ -1,168 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/bg_gradient"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <!-- Header -->
-
-    <!-- Group Members -->
+    <!-- Header  -->
     <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="118dp"
         android:background="@drawable/activity_rewards_heder"
         android:orientation="vertical"
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/tvMorningFitnessWalk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Morning Fitness Walk"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
 
         <TextView
+            android:id="@+id/tvWalkingWithFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Walking with 4 friends"
             android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textSize="20sp" />
+
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@drawable/wallking_group_bg_card"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
+    <!-- Rest of content below header -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Group Members"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"> <!-- adjust depending on header height -->
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="● Sarah"
-                android:textColor="#2ECC71"
-                android:background="@drawable/walking_group_chip_bg"
-                android:padding="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!-- Group Members -->
 
-            <TextView
-                android:text="● Mike"
-                android:textColor="#F39C12"
-                android:background="@drawable/walking_group_chip_bg"
-                android:padding="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!-- Chat Box -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/wallking_group_bg_card"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-            <TextView
-                android:text="● Jenny"
-                android:textColor="#3498DB"
-                android:background="@drawable/walking_group_chip_bg"
-                android:padding="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Group Members"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-    <!-- Chat Box -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/walking_group_bg_chatbox"
-        android:padding="12dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <ScrollView
-            android:id="@+id/chatScroll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/walking_group_chip_bg"
+                        android:padding="8dp"
+                        android:text="● Sarah"
+                        android:textColor="#2ECC71" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/walking_group_chip_bg"
+                        android:padding="8dp"
+                        android:text="● Mike"
+                        android:textColor="#F39C12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/walking_group_chip_bg"
+                        android:padding="8dp"
+                        android:text="● Jenny"
+                        android:textColor="#3498DB" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/chatMessagesLayout"
                 android:orientation="vertical"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </ScrollView>
+                android:layout_height="300dp"
+                android:background="@drawable/walking_group_bg_chatbox"
+                android:padding="12dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+                <ScrollView
+                    android:id="@+id/chatScroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/messageInput"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint="Type a message..."
-                android:background="@drawable/walking_group_input_bg"
-                android:padding="12dp"
-                android:textColor="#000"
-                android:textColorHint="#888888" />
+                    <LinearLayout
+                        android:id="@+id/chatMessagesLayout"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </ScrollView>
 
-            <ImageButton
-                android:id="@+id/sendButton"
-                android:src="@android:drawable/ic_menu_send"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/teal_700"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/messageInput"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:hint="Type a message..."
+                        android:background="@drawable/walking_group_input_bg"
+                        android:padding="12dp"
+                        android:textColor="#000"
+                        android:textColorHint="#888888" />
+
+                    <ImageButton
+                        android:id="@+id/sendButton"
+                        android:src="@android:drawable/ic_menu_send"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/teal_700"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Route Card -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/wallking_group_bg_card"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Central Park Loop"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="5.2 km • Moderate difficulty"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/startRouteButton"
+                    android:text="Start Route"
+                    android:backgroundTint="#2E7D32"
+                    android:textColor="@android:color/white"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
         </LinearLayout>
-    </LinearLayout>
-
-    <!-- Route Card -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@drawable/wallking_group_bg_card"
-        android:padding="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Central Park Loop"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text="5.2 km • Moderate difficulty"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginTop="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/startRouteButton"
-            android:text="Start Route"
-            android:backgroundTint="#2E7D32"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-</LinearLayout>
+    </ScrollView>
+</FrameLayout>
