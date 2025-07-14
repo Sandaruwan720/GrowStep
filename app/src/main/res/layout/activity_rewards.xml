@@ -3,15 +3,16 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A062DB">
+    android:background="@drawable/activity_rewards_background">
 
 
 
         <!-- Header Section -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="129dp"
-        android:background="@android:color/holo_green_dark"
+        android:background="@drawable/activity_rewards_heder"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -19,9 +20,10 @@
             android:id="@+id/tvGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Hello, Tharuka !"
             android:textColor="#FFFFFF"
-            android:textSize="22sp"
+            android:textSize="27sp"
             android:textStyle="bold" />
 
         <TextView
@@ -57,8 +59,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@android:color/white"
-                android:backgroundTint="#FFFFFF"
+                android:background="@drawable/forgot_password_card_background"
                 android:clipToOutline="true"
                 android:elevation="6dp"
                 android:gravity="center"

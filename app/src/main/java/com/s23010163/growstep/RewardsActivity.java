@@ -17,11 +17,9 @@ public class RewardsActivity extends AppCompatActivity {
         tvSubtitle = findViewById(R.id.tvSubtitle);
         tvTotalPoints = findViewById(R.id.tvTotalPoints);
 
-        // Optionally set dynamic values
-        String userName = "Tharuka";
-        int totalPoints = 2450;
-
-        tvGreeting.setText("Hello, " + userName + " !");
-        tvTotalPoints.setText(String.valueOf(totalPoints));
-    }
-}
+        // Set greeting with username from SharedPreferences
+        String username = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
+        if (!username.isEmpty()) {
+            tvGreeting.setText("Hello, " + username + "!");
+        }
+}}
