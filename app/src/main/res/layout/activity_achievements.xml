@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#240D3E">
+    android:background="@drawable/activity_profile_background">
 
     <!-- Top Gradient Profile Header -->
 
@@ -241,18 +241,13 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_agenda"
-                android:tint="#F4B400" />
 
             <TextView
-                android:layout_width="190dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Achievements"
-                android:textSize="18sp"
+                android:text="           Achievements"
+                android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
