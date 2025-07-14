@@ -53,6 +53,7 @@
         <activity android:name=".RewardsActivity" />
         <activity android:name=".AchievementsActivity" />
         <activity android:name=".FriendsActivity" />
+        <activity android:name=".WalkingGroupActivity" />
 
 
     </application>

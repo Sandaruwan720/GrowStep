@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.graphics.Color;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,5 +55,48 @@ public class FriendsActivity extends AppCompatActivity {
         // Set static values
         tvUserLevel.setText("Level 8 Walker • 2,450 points");
         numberGroupWalks.setText("12");
+
+        // Add dummy friends
+        LinearLayout friendsList = findViewById(R.id.friendsList);
+        addDummyFriend(friendsList, "Alice Pro", "Level 12", 78500, true);
+        addDummyFriend(friendsList, "Bob Walker", "Level 10", 65400, false);
+        addDummyFriend(friendsList, "Charlie Explorer", "Level 9", 60200, false);
+        addDummyFriend(friendsList, "Diana Fastfeet", "Level 11", 72000, false);
+    }
+
+    private void addDummyFriend(LinearLayout parent, String name, String level, int steps, boolean highlight) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        row.setPadding(0, 8, 0, 8);
+        if (highlight) {
+            row.setBackgroundColor(Color.parseColor("#E6D6FF"));
+        }
+
+        TextView tvName = new TextView(this);
+        tvName.setText(name);
+        tvName.setTextColor(Color.parseColor("#4B0082"));
+        tvName.setTextSize(15f);
+        tvName.setTypeface(null, android.graphics.Typeface.BOLD);
+        tvName.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 2f));
+
+        TextView tvLevel = new TextView(this);
+        tvLevel.setText(level);
+        tvLevel.setTextColor(Color.parseColor("#6C63FF"));
+        tvLevel.setTextSize(14f);
+        tvLevel.setGravity(Gravity.CENTER);
+        tvLevel.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        TextView tvSteps = new TextView(this);
+        tvSteps.setText(String.format("%d steps", steps));
+        tvSteps.setTextColor(Color.parseColor("#333333"));
+        tvSteps.setTextSize(14f);
+        tvSteps.setGravity(Gravity.END);
+        tvSteps.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 2f));
+
+        row.addView(tvName);
+        row.addView(tvLevel);
+        row.addView(tvSteps);
+        parent.addView(row);
     }
 }

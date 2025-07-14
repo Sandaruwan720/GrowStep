@@ -150,7 +150,9 @@ public class GroupsActivity extends AppCompatActivity {
                     btnJoin.setMinHeight(minButtonHeight);
                     btnJoin.setPadding(0, (int)(8 * getResources().getDisplayMetrics().density), 0, (int)(8 * getResources().getDisplayMetrics().density));
                     btnJoin.setOnClickListener(v -> {
-                        android.widget.Toast.makeText(this, "Joined group: " + name, android.widget.Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, WalkingGroupActivity.class);
+                        intent.putExtra("group_name", name);
+                        startActivity(intent);
                     });
                     buttonRow.addView(btnJoin);
 

@@ -80,6 +80,7 @@
                         android:textSize="14sp" />
 
                     <ProgressBar
+                        android:id="@+id/progressWeeklyStep"
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
@@ -96,6 +97,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textWeeklyStepProgress"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -140,6 +142,7 @@
                         android:textSize="14sp" />
 
                     <ProgressBar
+                        android:id="@+id/progressSocialWalker"
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
@@ -156,6 +159,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textSocialWalkerProgress"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -186,7 +190,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Explorer Badge"
+                        android:text="Social Butterfliy"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -195,11 +199,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Discover 3 new walking routes"
+                        android:text="join 3 new walking groups"
                         android:textColor="#EEEEEE"
                         android:textSize="14sp" />
 
                     <ProgressBar
+                        android:id="@+id/progressExplorerBadge"
                         style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
@@ -216,6 +221,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textExplorerBadgeProgress"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
