@@ -222,6 +222,21 @@ public class GroupsActivity extends AppCompatActivity {
 
                     cardContent.addView(buttonRow);
                     card.addView(cardContent);
+
+                    // Make the card clickable only for members
+                    card.setOnClickListener(v -> {
+                        String username = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
+                        UserDatabaseHelper db = new UserDatabaseHelper(this);
+                        if (db.isGroupMember(groupIndex, username)) {
+                            Intent intent = new Intent(this, WalkingGroupActivity.class);
+                            intent.putExtra("group_id", groupIndex);
+                            intent.putExtra("group_name", name);
+                            intent.putExtra("group_participants", participants);
+                            startActivity(intent);
+                        }
+                        // Optionally, else show a message: "Join the group first!"
+                    });
+
                     groupsContainer.addView(card);
                 } while (cursor.moveToNext());
                 cursor.close();

@@ -9,6 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WalkingGroupActivity extends AppCompatActivity {
 
@@ -46,32 +50,24 @@ public class WalkingGroupActivity extends AppCompatActivity {
             tvWalkingWithFriends.setText("Walking with " + groupParticipants + " friends in " + groupName);
         }
 
-        // Show group members
+        // Show group members in RecyclerView
         int groupId = intent.getIntExtra("group_id", -1);
-        LinearLayout groupMembersContainer = findViewById(R.id.groupMembersContainer);
-        groupMembersContainer.removeAllViews();
+        RecyclerView membersRecyclerView = findViewById(R.id.groupMembersRecyclerView);
+        membersRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        List<String> memberNames = new ArrayList<>();
         if (groupId != -1) {
             UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
             android.database.Cursor cursor = dbHelper.getGroupMembers(groupId);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     String memberName = cursor.getString(cursor.getColumnIndexOrThrow(UserDatabaseHelper.COLUMN_MEMBER_USERNAME));
-                    TextView tvMember = new TextView(this);
-                    tvMember.setText("\u2022 " + memberName); // Bullet + name
-                    tvMember.setTextColor(getResources().getColor(android.R.color.black));
-                    tvMember.setTextSize(15f);
-                    tvMember.setBackgroundResource(R.drawable.walking_group_chip_bg);
-                    tvMember.setPadding(16, 8, 16, 8);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0, 0, 16, 0);
-                    tvMember.setLayoutParams(params);
-                    groupMembersContainer.addView(tvMember);
+                    memberNames.add(memberName);
                 } while (cursor.moveToNext());
                 cursor.close();
             }
         }
+        GroupMembersAdapter adapter = new GroupMembersAdapter(memberNames);
+        membersRecyclerView.setAdapter(adapter);
     }
 
     private void addMessage(String message) {

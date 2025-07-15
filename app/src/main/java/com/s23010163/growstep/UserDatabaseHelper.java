@@ -118,6 +118,18 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Check if a user is already a member of a group
+    public boolean isGroupMember(int groupId, String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_MEMBER_GROUP_ID + "=? AND " + COLUMN_MEMBER_USERNAME + "=?";
+        String[] selectionArgs = {String.valueOf(groupId), username};
+        Cursor cursor = db.query(TABLE_GROUP_MEMBERS, null, selection, selectionArgs, null, null, null);
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
     // Get all members of a group
     public Cursor getGroupMembers(int groupId) {
         SQLiteDatabase db = this.getReadableDatabase();
