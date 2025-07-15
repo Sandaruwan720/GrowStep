@@ -173,4 +173,14 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         return db.query(TABLE_MESSAGES, null, COLUMN_MESSAGE_GROUP_ID + "=?",
                 new String[]{String.valueOf(groupId)}, null, null, COLUMN_MESSAGE_TIMESTAMP + " ASC");
     }
+
+    // Update group route and details
+    public boolean updateGroupRoute(int groupId, String route) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_GROUP_ROUTE, route);
+        int rows = db.update(TABLE_GROUPS, values, COLUMN_GROUP_ID + "=?", new String[]{String.valueOf(groupId)});
+        db.close();
+        return rows > 0;
+    }
 } 

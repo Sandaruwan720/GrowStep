@@ -146,12 +146,12 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
                     .putFloat("today_calories", cal)
                     .apply();
                 // Save session to history
+                SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                 try {
                     JSONObject session = new JSONObject();
                     session.put("steps", totalSteps);
                     session.put("distance", distKm);
                     session.put("calories", cal);
-                    SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                     String historyJson = prefs.getString("session_history", "[]");
                     JSONArray history = new JSONArray(historyJson);
                     history.put(session);
@@ -160,6 +160,11 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
                     e.printStackTrace();
                 }
                 Toast.makeText(this, "Walk finished", Toast.LENGTH_SHORT).show();
+                int groupWalks =  prefs.getInt("group_walks", 0) + 1;
+                prefs.edit().putInt("group_walks", groupWalks).apply();
+                // Notify challenge progress update
+                android.content.Intent intentUpdate = new android.content.Intent("com.growstep.CHALLENGE_PROGRESS_UPDATED");
+                sendBroadcast(intentUpdate);
             }
         });
 

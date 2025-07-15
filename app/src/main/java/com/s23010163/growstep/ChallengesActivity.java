@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ProgressBar;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +15,24 @@ public class ChallengesActivity extends AppCompatActivity {
 
     private LinearLayout navHome, navGroups, navChallenges, navProfile;
     private TextView startButton;
+    private BroadcastReceiver challengeUpdateReceiver;
+
+    private void updateChallengeProgress() {
+        ProgressBar progressSocialWalker = findViewById(R.id.progressSocialWalker);
+        TextView textSocialWalkerProgress = findViewById(R.id.textSocialWalkerProgress);
+        ProgressBar progressExplorerBadge = findViewById(R.id.progressExplorerBadge);
+        TextView textExplorerBadgeProgress = findViewById(R.id.textExplorerBadgeProgress);
+        int groupWalks = getSharedPreferences("user_prefs", MODE_PRIVATE).getInt("group_walks", 0);
+        int groupWalkGoal = 5;
+        int groupWalkPercent = Math.min(100, (int) (groupWalks * 100.0 / groupWalkGoal));
+        progressSocialWalker.setProgress(groupWalkPercent);
+        textSocialWalkerProgress.setText(String.format("%d / %d group walks", groupWalks, groupWalkGoal));
+        int groupsJoined = getSharedPreferences("user_prefs", MODE_PRIVATE).getInt("groups_joined", 0);
+        int butterflyGoal = 3;
+        int butterflyPercent = Math.min(100, (int) (groupsJoined * 100.0 / butterflyGoal));
+        progressExplorerBadge.setProgress(butterflyPercent);
+        textExplorerBadgeProgress.setText(String.format("%d / %d groups joined", groupsJoined, butterflyGoal));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +87,16 @@ public class ChallengesActivity extends AppCompatActivity {
         progressExplorerBadge.setProgress(routePercent);
         textExplorerBadgeProgress.setText(String.format("%d / %d routes", routesDiscovered, routeGoal));
 
+        updateChallengeProgress();
+        // Listen for challenge updates
+        challengeUpdateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                updateChallengeProgress();
+            }
+        };
+        registerReceiver(challengeUpdateReceiver, new IntentFilter("com.growstep.CHALLENGE_PROGRESS_UPDATED"));
+
 
         navHome.setOnClickListener(v -> {
             startActivity(new Intent(ChallengesActivity.this, HomeActivity.class));
@@ -90,5 +121,19 @@ public class ChallengesActivity extends AppCompatActivity {
         startButton.setOnClickListener(v -> {
             startActivity(new Intent(ChallengesActivity.this, StartWalkingActivity.class));
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateChallengeProgress();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (challengeUpdateReceiver != null) {
+            unregisterReceiver(challengeUpdateReceiver);
+        }
     }
 }

@@ -159,6 +159,15 @@ public class GroupsActivity extends AppCompatActivity {
                         try {
                             UserDatabaseHelper db = new UserDatabaseHelper(this);
                             db.addGroupMember(groupIndex, username);
+                            android.content.SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                            String joinedKey = "joined_group_" + groupIndex;
+                            if (!prefs.getBoolean(joinedKey, false)) {
+                                int groupsJoined = prefs.getInt("groups_joined", 0) + 1;
+                                prefs.edit().putInt("groups_joined", groupsJoined).putBoolean(joinedKey, true).apply();
+                                // Notify challenge progress update
+                                android.content.Intent intentUpdate = new android.content.Intent("com.growstep.CHALLENGE_PROGRESS_UPDATED");
+                                sendBroadcast(intentUpdate);
+                            }
                         } catch (Exception e) {
                             android.widget.Toast.makeText(this, "Failed to join group: " + e.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
                             return;

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import android.widget.ImageView;
+import android.app.AlertDialog;
+import android.widget.Button;
 
 public class WalkingGroupActivity extends AppCompatActivity {
 
@@ -64,6 +66,41 @@ public class WalkingGroupActivity extends AppCompatActivity {
             }
         });
 
+        // Route edit logic
+        TextView tvRouteName = findViewById(R.id.tvRouteName);
+        TextView tvRouteDetails = findViewById(R.id.tvRouteDetails);
+        ImageButton btnEditRoute = findViewById(R.id.btnEditRoute);
+        btnEditRoute.setOnClickListener(v -> {
+            // Show dialog to edit route name and details
+            View dialogView = getLayoutInflater().inflate(android.R.layout.simple_list_item_2, null);
+            final EditText inputName = new EditText(this);
+            inputName.setHint("Route Name");
+            inputName.setText(tvRouteName.getText());
+            final EditText inputDetails = new EditText(this);
+            inputDetails.setHint("Distance & Difficulty");
+            inputDetails.setText(tvRouteDetails.getText());
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            layout.setPadding(32, 16, 32, 16);
+            layout.addView(inputName);
+            layout.addView(inputDetails);
+            new AlertDialog.Builder(this)
+                .setTitle("Edit Route Info")
+                .setView(layout)
+                .setPositiveButton("Save", (dialog, which) -> {
+                    String newRoute = inputName.getText().toString() + " • " + inputDetails.getText().toString();
+                    tvRouteName.setText(inputName.getText().toString());
+                    tvRouteDetails.setText(inputDetails.getText().toString());
+                    // Save to DB if groupId is valid
+                    if (groupId != -1) {
+                        UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+                        dbHelper.updateGroupRoute(groupId, newRoute);
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+        });
+
         // Update group name sections based on Intent extra
         String groupName = intent.getStringExtra("group_name");
         TextView tvMorningFitnessWalk = findViewById(R.id.tvMorningFitnessWalk);
@@ -91,6 +128,12 @@ public class WalkingGroupActivity extends AppCompatActivity {
         }
         GroupMembersAdapter adapter = new GroupMembersAdapter(memberNames);
         membersRecyclerView.setAdapter(adapter);
+
+        Button startRouteButton = findViewById(R.id.startRouteButton);
+        startRouteButton.setOnClickListener(v -> {
+            Intent intent1 = new Intent(WalkingGroupActivity.this, StartWalkingActivity.class);
+            startActivity(intent1);
+        });
     }
 
     // Update addMessage to accept message and username
@@ -191,6 +234,15 @@ public class WalkingGroupActivity extends AppCompatActivity {
 
         // Add message and user info bubble to bubble frame
         bubbleFrame.addView(msgView);
+        // Add larger space between message and user info bubble
+        View spacer = new View(this);
+        android.widget.FrameLayout.LayoutParams spacerParams = new android.widget.FrameLayout.LayoutParams(
+            android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+            (int)(24 * getResources().getDisplayMetrics().density) // Increased from 8dp to 24dp
+        );
+        spacerParams.gravity = isCurrentUser ? (android.view.Gravity.END | android.view.Gravity.TOP) : (android.view.Gravity.START | android.view.Gravity.TOP);
+        spacer.setLayoutParams(spacerParams);
+        bubbleFrame.addView(spacer);
         bubbleFrame.addView(userInfoBubble);
 
         // Add bubble to message row
