@@ -35,6 +35,11 @@ public class LoginActivity extends AppCompatActivity {
                 UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
                 if (dbHelper.validateUser(username, password)) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    // Save username to SharedPreferences
+                    getSharedPreferences("user_prefs", MODE_PRIVATE)
+                        .edit()
+                        .putString("username", username)
+                        .apply();
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     finish();
                 } else {

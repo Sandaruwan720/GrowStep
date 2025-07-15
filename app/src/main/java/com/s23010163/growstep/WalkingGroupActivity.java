@@ -95,6 +95,10 @@ public class WalkingGroupActivity extends AppCompatActivity {
 
     // Update addMessage to accept message and username
     private void addMessage(String message, String username) {
+        // Get current user
+        String currentUser = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
+        boolean isCurrentUser = username.equals(currentUser);
+
         // Outer vertical layout for the message row
         LinearLayout messageRow = new LinearLayout(this);
         messageRow.setOrientation(LinearLayout.VERTICAL);
@@ -111,7 +115,7 @@ public class WalkingGroupActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        bubbleParams.gravity = android.view.Gravity.END;
+        bubbleParams.gravity = isCurrentUser ? android.view.Gravity.END : android.view.Gravity.START;
         bubbleFrame.setLayoutParams(bubbleParams);
 
         // Message bubble
@@ -119,14 +123,18 @@ public class WalkingGroupActivity extends AppCompatActivity {
         msgView.setText(message);
         msgView.setTextSize(16f);
         msgView.setTextColor(getResources().getColor(android.R.color.black));
-        msgView.setBackground(getResources().getDrawable(R.drawable.chat_bubble_right, null));
+        if (isCurrentUser) {
+            msgView.setBackground(getResources().getDrawable(R.drawable.chat_bubble_right, null));
+        } else {
+            msgView.setBackground(getResources().getDrawable(R.drawable.chat_bubble_left, null));
+        }
         msgView.setPadding(32, 48, 32, 24); // Extra top padding for icon+username bubble
 
         android.widget.FrameLayout.LayoutParams msgParams = new android.widget.FrameLayout.LayoutParams(
                 android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
                 android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
         );
-        msgParams.gravity = android.view.Gravity.END | android.view.Gravity.BOTTOM;
+        msgParams.gravity = isCurrentUser ? (android.view.Gravity.END | android.view.Gravity.BOTTOM) : (android.view.Gravity.START | android.view.Gravity.BOTTOM);
         msgView.setLayoutParams(msgParams);
 
         // --- Username and profile icon pill bubble ---
@@ -148,8 +156,12 @@ public class WalkingGroupActivity extends AppCompatActivity {
                 android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
                 android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
         );
-        userInfoParams.gravity = android.view.Gravity.END | android.view.Gravity.TOP;
-        userInfoParams.setMargins(0, 8, 16, 0); // Top and right margin inside bubble
+        userInfoParams.gravity = isCurrentUser ? (android.view.Gravity.END | android.view.Gravity.TOP) : (android.view.Gravity.START | android.view.Gravity.TOP);
+        if (isCurrentUser) {
+            userInfoParams.setMargins(0, 8, 16, 0); // Top and right margin inside bubble
+        } else {
+            userInfoParams.setMargins(16, 8, 0, 0); // Top and left margin inside bubble
+        }
         userInfoBubble.setLayoutParams(userInfoParams);
 
         // Profile icon (ImageView with color filter, like group members)
