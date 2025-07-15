@@ -8,7 +8,7 @@ import android.database.Cursor;
 
 public class UserDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ue3.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_USERNAME = "username";
@@ -23,6 +23,12 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_GROUP_MEMBERS = "group_members";
     public static final String COLUMN_MEMBER_GROUP_ID = "group_id";
     public static final String COLUMN_MEMBER_USERNAME = "username";
+    public static final String TABLE_MESSAGES = "messages";
+    public static final String COLUMN_MESSAGE_ID = "id";
+    public static final String COLUMN_MESSAGE_GROUP_ID = "group_id";
+    public static final String COLUMN_MESSAGE_USERNAME = "username";
+    public static final String COLUMN_MESSAGE_TEXT = "text";
+    public static final String COLUMN_MESSAGE_TIMESTAMP = "timestamp";
 
     public UserDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,6 +55,14 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_MEMBER_GROUP_ID + " INTEGER, "
                 + COLUMN_MEMBER_USERNAME + " TEXT)";
         db.execSQL(CREATE_GROUP_MEMBERS_TABLE);
+
+        String CREATE_MESSAGES_TABLE = "CREATE TABLE " + TABLE_MESSAGES + " ("
+                + COLUMN_MESSAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_MESSAGE_GROUP_ID + " INTEGER, "
+                + COLUMN_MESSAGE_USERNAME + " TEXT, "
+                + COLUMN_MESSAGE_TEXT + " TEXT, "
+                + COLUMN_MESSAGE_TIMESTAMP + " INTEGER)";
+        db.execSQL(CREATE_MESSAGES_TABLE);
     }
 
     @Override
@@ -56,6 +70,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUPS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP_MEMBERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGES);
         onCreate(db);
     }
 
@@ -140,5 +155,22 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllGroups() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.query(TABLE_GROUPS, null, null, null, null, null, null);
+    }
+
+    public void insertMessage(int groupId, String username, String text, long timestamp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_MESSAGE_GROUP_ID, groupId);
+        values.put(COLUMN_MESSAGE_USERNAME, username);
+        values.put(COLUMN_MESSAGE_TEXT, text);
+        values.put(COLUMN_MESSAGE_TIMESTAMP, timestamp);
+        db.insert(TABLE_MESSAGES, null, values);
+        db.close();
+    }
+
+    public Cursor getMessagesForGroup(int groupId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_MESSAGES, null, COLUMN_MESSAGE_GROUP_ID + "=?",
+                new String[]{String.valueOf(groupId)}, null, null, COLUMN_MESSAGE_TIMESTAMP + " ASC");
     }
 } 
