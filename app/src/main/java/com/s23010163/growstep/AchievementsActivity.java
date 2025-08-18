@@ -10,6 +10,7 @@ public class AchievementsActivity extends AppCompatActivity {
     private TextView tvUserName, tvUserLevel;
     private TextView numberSteps, numberDistance, numberGroupWalks, numberCalories;
     private TextView profileIcon;
+    private TextView tvTotalPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,9 @@ public class AchievementsActivity extends AppCompatActivity {
         numberGroupWalks = findViewById(R.id.NupberGroupsWalked);
         numberCalories = findViewById(R.id.NupberCalories);
         profileIcon = findViewById(R.id.profileIcon);
+
+        tvTotalPoints = findViewById(R.id.tvTotalPoints);
+        updateTotalPoints();
 
         // Get full name from SharedPreferences
         String fullName = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("full_name", "");
@@ -48,4 +52,18 @@ public class AchievementsActivity extends AppCompatActivity {
         // Set static values
         tvUserLevel.setText("Level 8 Walker • 2,450 points");
         numberGroupWalks.setText("12");
-    }}
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateTotalPoints();
+    }
+
+    private void updateTotalPoints() {
+        int pts = getSharedPreferences("user_prefs", MODE_PRIVATE).getInt("pts", 0);
+        if (tvTotalPoints != null) {
+            tvTotalPoints.setText("Total Points: " + pts + " pts");
+        }
+    }
+}

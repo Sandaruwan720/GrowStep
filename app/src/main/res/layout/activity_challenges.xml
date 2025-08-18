@@ -34,6 +34,16 @@
             android:text="Complete challenges to earn rewards"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvTotalPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Total Points: 0"
+            android:textColor="#FFD700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView

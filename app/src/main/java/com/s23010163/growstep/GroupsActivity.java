@@ -159,7 +159,20 @@ public class GroupsActivity extends AppCompatActivity {
                         try {
                             UserDatabaseHelper db = new UserDatabaseHelper(this);
                             db.addGroupMember(groupIndex, username);
+                            // Add all group members as friends (except self)
+                            android.database.Cursor membersCursor = db.getGroupMembers(groupIndex);
+                            java.util.HashSet<String> friendsSet = new java.util.HashSet<>();
                             android.content.SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                            java.util.Set<String> existingFriends = prefs.getStringSet("friends", new java.util.HashSet<>());
+                            if (existingFriends != null) friendsSet.addAll(existingFriends);
+                            if (membersCursor != null && membersCursor.moveToFirst()) {
+                                do {
+                                    String member = membersCursor.getString(membersCursor.getColumnIndexOrThrow("username"));
+                                    if (!member.equals(username)) friendsSet.add(member);
+                                } while (membersCursor.moveToNext());
+                                membersCursor.close();
+                            }
+                            prefs.edit().putStringSet("friends", friendsSet).apply();
                             String joinedKey = "joined_group_" + groupIndex;
                             if (!prefs.getBoolean(joinedKey, false)) {
                                 int groupsJoined = prefs.getInt("groups_joined", 0) + 1;

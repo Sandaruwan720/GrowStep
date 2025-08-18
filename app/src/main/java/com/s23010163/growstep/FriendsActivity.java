@@ -56,12 +56,14 @@ public class FriendsActivity extends AppCompatActivity {
         tvUserLevel.setText("Level 8 Walker • 2,450 points");
         numberGroupWalks.setText("12");
 
-        // Add dummy friends
+        // Show real friends from SharedPreferences
         LinearLayout friendsList = findViewById(R.id.friendsList);
-        addDummyFriend(friendsList, "Alice Pro", "Level 12", 78500, true);
-        addDummyFriend(friendsList, "Bob Walker", "Level 10", 65400, false);
-        addDummyFriend(friendsList, "Charlie Explorer", "Level 9", 60200, false);
-        addDummyFriend(friendsList, "Diana Fastfeet", "Level 11", 72000, false);
+        friendsList.removeAllViews();
+        java.util.Set<String> friends = getSharedPreferences("user_prefs", MODE_PRIVATE).getStringSet("friends", new java.util.HashSet<>());
+        for (String friend : friends) {
+            int steps = getUserSteps(friend);
+            addFriendRow(friendsList, friend, steps);
+        }
     }
 
     private void addDummyFriend(LinearLayout parent, String name, String level, int steps, boolean highlight) {
@@ -98,5 +100,68 @@ public class FriendsActivity extends AppCompatActivity {
         row.addView(tvLevel);
         row.addView(tvSteps);
         parent.addView(row);
+    }
+
+    // Add a friend row with icon, beautiful color, and total steps
+    private void addFriendRow(LinearLayout parent, String name, int steps) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        row.setPadding(0, 8, 0, 8);
+        // Profile icon
+        android.widget.ImageView icon = new android.widget.ImageView(this);
+        icon.setImageResource(R.drawable.ic_person);
+        icon.setColorFilter(pickColor(name));
+        int size = (int)(40 * getResources().getDisplayMetrics().density);
+        LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(size, size);
+        iconParams.setMargins(0, 0, 24, 0);
+        icon.setLayoutParams(iconParams);
+        // Name
+        TextView tvName = new TextView(this);
+        tvName.setText(name);
+        tvName.setTextColor(Color.parseColor("#4B0082"));
+        tvName.setTextSize(15f);
+        tvName.setTypeface(null, android.graphics.Typeface.BOLD);
+        tvName.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        // Steps
+        TextView tvSteps = new TextView(this);
+        tvSteps.setText(steps + " steps");
+        tvSteps.setTextColor(Color.parseColor("#333333"));
+        tvSteps.setTextSize(14f);
+        tvSteps.setGravity(Gravity.END);
+        tvSteps.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        row.addView(icon);
+        row.addView(tvName);
+        row.addView(tvSteps);
+        parent.addView(row);
+    }
+    // Pick a beautiful color based on name (same as GroupMembersAdapter)
+    private int pickColor(String name) {
+        int[] colors = {0xFF6C63FF, 0xFF00BFAE, 0xFFFFB300, 0xFFEF5350, 0xFF42A5F5, 0xFFAB47BC, 0xFF26A69A};
+        int hash = Math.abs(name.hashCode());
+        return colors[hash % colors.length];
+    }
+
+    // Get total steps for a user from the database (users table), or 0 if not found
+    private int getUserSteps(String username) {
+        int steps = 0;
+        try {
+            UserDatabaseHelper db = new UserDatabaseHelper(this);
+            android.database.Cursor cursor = db.getReadableDatabase().query(
+                UserDatabaseHelper.TABLE_USERS,
+                new String[]{"steps"},
+                UserDatabaseHelper.COLUMN_USERNAME + "=?",
+                new String[]{username},
+                null, null, null
+            );
+            if (cursor != null && cursor.moveToFirst()) {
+                int idx = cursor.getColumnIndex("steps");
+                if (idx != -1) steps = cursor.getInt(idx);
+                cursor.close();
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+        return steps;
     }
 }
