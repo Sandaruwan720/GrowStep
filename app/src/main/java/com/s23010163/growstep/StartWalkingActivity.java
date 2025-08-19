@@ -145,6 +145,21 @@ public class StartWalkingActivity extends AppCompatActivity implements SensorEve
                     .putFloat("today_distance", distKm)
                     .putFloat("today_calories", cal)
                     .apply();
+                
+                // Save to weekly database
+                String username = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
+                if (!username.isEmpty()) {
+                    try {
+                        UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+                        boolean success = dbHelper.addDailySteps(username, totalSteps, distKm, cal);
+                        if (!success) {
+                            Toast.makeText(this, "Failed to save weekly data", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Error saving weekly data", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 // Save session to history
                 SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                 try {

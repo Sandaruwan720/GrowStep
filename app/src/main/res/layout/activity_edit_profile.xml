@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@drawable/activity_profile_background">
+
+	<com.google.android.material.appbar.MaterialToolbar
+		android:id="@+id/topAppBar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@android:color/transparent"
+		android:title="Edit Profile"
+		android:titleTextColor="@android:color/white"
+		android:navigationIcon="@drawable/ic_x" />
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="24dp">
+
+			<EditText
+				android:id="@+id/editUsername"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Username"
+				android:inputType="text"
+				android:background="@drawable/edit_text_background"
+				android:textColor="#000000"
+				android:textColorHint="#000000"
+				android:padding="12dp"
+				android:layout_marginTop="12dp" />
+
+			<EditText
+				android:id="@+id/editFullName"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Full name"
+				android:inputType="textPersonName"
+				android:background="@drawable/edit_text_background"
+				android:textColor="#000000"
+				android:textColorHint="#000000"
+				android:padding="12dp"
+				android:layout_marginTop="12dp" />
+
+			<EditText
+				android:id="@+id/editAge"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Age"
+				android:inputType="number"
+				android:background="@drawable/edit_text_background"
+				android:textColor="#000000"
+				android:textColorHint="#000000"
+				android:padding="12dp"
+				android:layout_marginTop="12dp" />
+
+			<EditText
+				android:id="@+id/editGender"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Gender (male/female/other)"
+				android:inputType="text"
+				android:background="@drawable/edit_text_background"
+				android:textColor="#000000"
+				android:textColorHint="#000000"
+				android:padding="12dp"
+				android:layout_marginTop="12dp" />
+
+			<EditText
+				android:id="@+id/editHeight"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Height (cm)"
+				android:inputType="numberDecimal"
+				android:background="@drawable/edit_text_background"
+				android:textColor="#000000"
+				android:textColorHint="#000000"
+				android:padding="12dp"
+				android:layout_marginTop="12dp" />
+
+			<EditText
+				android:id="@+id/editWeight"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Weight (kg)"
+				android:inputType="numberDecimal"
+				android:background="@drawable/edit_text_background"
+				android:textColor="#000000"
+				android:textColorHint="#000000"
+				android:padding="12dp"
+				android:layout_marginTop="12dp" />
+
+			<Button
+				android:id="@+id/btnSaveProfile"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Save Changes"
+				android:textColor="@android:color/white"
+				android:layout_marginTop="20dp"
+				android:background="@drawable/diamond_button_bg" />
+
+			<Button
+				android:id="@+id/btnLogout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Logout"
+				android:textColor="@android:color/white"
+				android:layout_marginTop="12dp"
+				android:background="@drawable/bg_button_delete" />
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>
+
+

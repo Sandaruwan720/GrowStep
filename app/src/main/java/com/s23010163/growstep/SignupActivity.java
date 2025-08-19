@@ -3,15 +3,19 @@ package com.s23010163.growstep;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class SignupActivity extends Activity {
 
     EditText usernameInput, emailInput, cityInput, passwordInput, confirmPasswordInput;
     Button btnSignup;
+    ImageButton btnTogglePassword1, btnTogglePassword2;
+    private boolean pwd1Visible = false, pwd2Visible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,32 @@ public class SignupActivity extends Activity {
         passwordInput = findViewById(R.id.passwordInput);
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         btnSignup = findViewById(R.id.btnSignup);
+        btnTogglePassword1 = findViewById(R.id.btnTogglePassword1);
+        btnTogglePassword2 = findViewById(R.id.btnTogglePassword2);
+
+        btnTogglePassword1.setOnClickListener(v -> {
+            pwd1Visible = !pwd1Visible;
+            if (pwd1Visible) {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                btnTogglePassword1.setImageResource(R.drawable.ic_visibility_on);
+            } else {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                btnTogglePassword1.setImageResource(R.drawable.ic_visibility_off);
+            }
+            passwordInput.setSelection(passwordInput.getText().length());
+        });
+
+        btnTogglePassword2.setOnClickListener(v -> {
+            pwd2Visible = !pwd2Visible;
+            if (pwd2Visible) {
+                confirmPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                btnTogglePassword2.setImageResource(R.drawable.ic_visibility_on);
+            } else {
+                confirmPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                btnTogglePassword2.setImageResource(R.drawable.ic_visibility_off);
+            }
+            confirmPasswordInput.setSelection(confirmPasswordInput.getText().length());
+        });
 
         btnSignup.setOnClickListener(v -> {
             String username = usernameInput.getText().toString().trim();
@@ -50,6 +80,12 @@ public class SignupActivity extends Activity {
 
             if (password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "Please fill both password fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Stronger password rule: at least 6 chars, include a digit
+            if (password.length() < 6 || !password.matches(".*\\d.*")) {
+                Toast.makeText(this, "Password must be 6+ chars and include a number", Toast.LENGTH_SHORT).show();
                 return;
             }
 

@@ -3,5 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="teal_700">#018786</color>
-
+    
+    <!-- Professional daily breakdown colors -->
+    <color name="daily_day_text">#B8E5E4</color>
+    <color name="daily_steps_text">#FFFFFF</color>
+    <color name="daily_secondary_text">#E0E0E0</color>
 </resources>

@@ -42,6 +42,31 @@
             android:text="Level 8 Walker • 2,450 points"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnEditProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_button_edit"
+                android:contentDescription="Edit Profile"
+                android:src="@drawable/ic_edit" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <GridLayout
@@ -78,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
-                android:text="This week's Steps"
+                android:text="The previous Steps"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 android:textStyle="bold" />

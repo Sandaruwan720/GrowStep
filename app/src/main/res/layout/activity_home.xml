@@ -1,297 +1,358 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#240D3E">
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#240D3E">
 
-    <!-- Header Section -->
+	<!-- Scrollable content area (above bottom nav) -->
+	<ScrollView
+		android:id="@+id/homeScroll"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_above="@id/bottomNav"
+		android:fillViewport="true">
 
-    <!-- Circular Step Counter (Progress Ring Style) -->
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/header_section_backgroundc0l0r"
-        android:orientation="vertical"
-        android:padding="24dp">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvGreeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello, Tharuka!"
-            android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+			<!-- Header Section -->
+			<LinearLayout
+				android:id="@+id/header"
+				android:layout_width="match_parent"
+				android:layout_height="150dp"
+				android:layout_marginTop="40dp"
+				android:background="@drawable/header_section_backgroundc0l0r"
+				android:orientation="vertical"
+				android:padding="24dp">
 
-        <TextView
-            android:id="@+id/tvSubGreeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ready for today's adventure?"
-            android:textColor="#B8E5E4"
-            android:textSize="16sp" />
-    </LinearLayout>
+				<TextView
+					android:id="@+id/tvGreeting"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Hello, Tharuka!"
+					android:textColor="#FFFFFF"
+					android:textSize="26sp"
+					android:textStyle="bold" />
 
-    <FrameLayout
-        android:id="@+id/stepCircleContainer"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:layout_below="@id/header"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp">
+				<TextView
+					android:id="@+id/tvSubGreeting"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Ready for today's adventure?"
+					android:textColor="#B8E5E4"
+					android:textSize="16sp" />
+			</LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/stepsCircle"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:indeterminate="false"
-            android:max="10000"
-            android:progress="7250"
-            android:progressDrawable="@drawable/circular_progress" />
+			<!-- Circular Step Counter (Progress Ring Style) -->
+			<FrameLayout
+				android:id="@+id/stepCircleContainer"
+				android:layout_width="260dp"
+				android:layout_height="260dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginTop="30dp">
 
-        <TextView
-            android:id="@+id/tvStepsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="7,250"
-            android:textColor="#FFFFFF"
-            android:textSize="36sp"
-            android:textStyle="bold" />
+				<ProgressBar
+					android:id="@+id/stepsCircle"
+					style="@android:style/Widget.ProgressBar.Horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:indeterminate="false"
+					android:max="10000"
+					android:progress="7250"
+					android:progressDrawable="@drawable/circular_progress" />
 
-        <TextView
-            android:id="@+id/tvUnit"
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:text="  Steps"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp" />
-    </FrameLayout>
+				<TextView
+					android:id="@+id/tvStepsCount"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:text="7,250"
+					android:textColor="#FFFFFF"
+					android:textSize="36sp"
+					android:textStyle="bold" />
 
-    <!-- Info Card for Steps, Distance, Calories -->
-    <LinearLayout
-        android:id="@+id/infoCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/stepCircleContainer"
-        android:layout_margin="20dp"
-        android:background="@drawable/info_card_bg"
-        android:orientation="vertical"
-        android:padding="16dp">
+				<TextView
+					android:id="@+id/tvUnit"
+					android:layout_width="107dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="50dp"
+					android:text="  Steps"
+					android:textColor="#FFFFFF"
+					android:textSize="30sp" />
+			</FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+			<!-- Info Card for Steps, Distance, Calories + Weekly Button -->
+			<LinearLayout
+				android:id="@+id/infoCard"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:background="@drawable/info_card_bg"
+				android:orientation="vertical"
+				android:padding="16dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Today's Steps"
-                android:textColor="#FFFFFF" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:weightSum="2">
 
-            <TextView
-                android:id="@+id/tvStepsDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="7,250"
-                android:textColor="#2C1C3C"
-                android:textStyle="bold" />
-        </LinearLayout>
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="Today's Steps"
+						android:textColor="#FFFFFF" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+					<TextView
+						android:id="@+id/tvStepsDetail"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="end"
+						android:text="7,250"
+						android:textColor="#2C1C3C"
+						android:textStyle="bold" />
+				</LinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Distance"
-                android:textColor="#FFFFFF" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:orientation="horizontal"
+					android:weightSum="2">
 
-            <TextView
-                android:id="@+id/tvDistance"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="6.2 km"
-                android:textColor="#2C1C3C"
-                android:textStyle="bold" />
-        </LinearLayout>
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="Distance"
+						android:textColor="#FFFFFF" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+					<TextView
+						android:id="@+id/tvDistance"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="end"
+						android:text="6.2 km"
+						android:textColor="#2C1C3C"
+						android:textStyle="bold" />
+				</LinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Calories"
-                android:textColor="#FFFFFF" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:orientation="horizontal"
+					android:weightSum="2">
 
-            <TextView
-                android:id="@+id/tvCalories"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="342 kcal"
-                android:textColor="#2C1C3C"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="Calories"
+						android:textColor="#FFFFFF" />
 
-    <!-- Diamond Shape Start Button -->
+					<TextView
+						android:id="@+id/tvCalories"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="end"
+						android:text="342 kcal"
+						android:textColor="#2C1C3C"
+						android:textStyle="bold" />
+				</LinearLayout>
 
-    <!-- Bottom Navigation Bar -->
-    <LinearLayout
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/navigation_bar"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="4">
+				<!-- This Week's Steps Button -->
+				<LinearLayout
+					android:id="@+id/weeklyStepsButton"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="20dp"
+					android:layout_marginTop="16dp"
+					android:background="@drawable/button_gradient"
+					android:orientation="horizontal"
+					android:padding="16dp"
+					android:gravity="center_vertical">
 
-        <!-- Home -->
-        <LinearLayout
-            android:id="@+id/nav_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:src="@drawable/ic_person"
+						android:tint="@android:color/white"
+						android:layout_marginEnd="12dp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_home" />
+					<LinearLayout
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
+						<TextView
+							android:id="@+id/tvWeeklyTitle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="This Week's Steps"
+							android:textSize="16sp"
+							android:textStyle="bold"
+							android:textColor="@android:color/white" />
 
-        <!-- Groups -->
-        <LinearLayout
-            android:id="@+id/nav_groups"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+						<TextView
+							android:id="@+id/tvWeeklySubtitle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="Total: 0 steps"
+							android:textSize="12sp"
+							android:textColor="#EAEAEA" />
+					</LinearLayout>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_group" />
+					<ImageView
+						android:layout_width="16dp"
+						android:layout_height="16dp"
+						android:src="@drawable/ic_share"
+						android:tint="@android:color/white" />
+				</LinearLayout>
+			</LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Groups"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
+		</LinearLayout>
+	</ScrollView>
 
-        <!-- Challenges -->
-        <LinearLayout
-            android:id="@+id/nav_challenges"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+	<!-- Bottom Navigation Bar -->
+	<LinearLayout
+		android:id="@+id/bottomNav"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:layout_alignParentBottom="true"
+		android:background="@drawable/navigation_bar"
+		android:orientation="horizontal"
+		android:padding="5dp"
+		android:weightSum="4">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_challenge" />
+		<!-- Home -->
+		<LinearLayout
+			android:id="@+id/nav_home"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Challenges"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
+			<ImageView
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:src="@drawable/ic_home" />
 
-        <!-- Profile -->
-        <LinearLayout
-            android:id="@+id/nav_profile"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Home"
+				android:textColor="#FFFFFF"
+				android:textSize="12sp" />
+		</LinearLayout>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_profile" />
+		<!-- Groups -->
+		<LinearLayout
+			android:id="@+id/nav_groups"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
+			<ImageView
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:src="@drawable/ic_group" />
 
-    </LinearLayout>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Groups"
+				android:textColor="#FFFFFF"
+				android:textSize="12sp" />
+		</LinearLayout>
 
-    <!-- Start Button and Shadow -->
-    <TextView
-        android:id="@+id/diamondShadow"
-        android:layout_width="63dp"
-        android:layout_height="63dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"
-        android:rotation="45"
-        android:background="#240D3E" />
+		<!-- Challenges -->
+		<LinearLayout
+			android:id="@+id/nav_challenges"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="38dp"
-        android:background="@drawable/diamond_button_bg"
-        android:rotation="45" />
+			<ImageView
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:src="@drawable/ic_challenge" />
 
-    <TextView
-        android:id="@+id/startLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start"
-        android:textColor="#F2E9E9"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="56dp" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Challenges"
+				android:textColor="#FFFFFF"
+				android:textSize="12sp" />
+		</LinearLayout>
+
+		<!-- Profile -->
+		<LinearLayout
+			android:id="@+id/nav_profile"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:orientation="vertical">
+
+			<ImageView
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:src="@drawable/ic_profile" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Profile"
+				android:textColor="#FFFFFF"
+				android:textSize="12sp" />
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<!-- Start Button and Shadow (floating over bottom area) -->
+	<TextView
+		android:id="@+id/diamondShadow"
+		android:layout_width="63dp"
+		android:layout_height="63dp"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:layout_marginBottom="32dp"
+		android:rotation="45"
+		android:background="#240D3E" />
+
+	<TextView
+		android:id="@+id/textView3"
+		android:layout_width="54dp"
+		android:layout_height="54dp"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:layout_marginBottom="38dp"
+		android:background="@drawable/diamond_button_bg"
+		android:rotation="45" />
+
+	<TextView
+		android:id="@+id/startLabel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Start"
+		android:textColor="#F2E9E9"
+		android:textStyle="bold"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:layout_marginBottom="56dp" />
 
 </RelativeLayout>

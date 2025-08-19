@@ -132,26 +132,29 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_lock_idle_lock" />
+            android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/passwordInput"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_toStartOf="@id/btnTogglePassword1"
                 android:hint="Enter the password"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF"
                 android:background="@android:color/transparent"
                 android:inputType="textPassword" />
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnTogglePassword1"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="Toggle password visibility"
+                android:src="@drawable/ic_visibility_off" />
+        </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -165,26 +168,29 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_lock_idle_lock" />
+            android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/confirmPasswordInput"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_toStartOf="@id/btnTogglePassword2"
                 android:hint="Confirm the password"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF"
                 android:background="@android:color/transparent"
                 android:inputType="textPassword" />
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnTogglePassword2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="Toggle password visibility"
+                android:src="@drawable/ic_visibility_off" />
+        </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

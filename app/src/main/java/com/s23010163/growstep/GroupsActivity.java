@@ -106,8 +106,16 @@ public class GroupsActivity extends AppCompatActivity {
                     tvName.setTypeface(null, android.graphics.Typeface.BOLD);
                     cardContent.addView(tvName);
 
+                    // Get actual member count
+                    android.database.Cursor memberCountCursor = dbHelper.getGroupMembers(groupIndex);
+                    int actualMemberCount = 0;
+                    if (memberCountCursor != null) {
+                        actualMemberCount = memberCountCursor.getCount();
+                        memberCountCursor.close();
+                    }
+                    
                     TextView tvRoute = new TextView(this);
-                    tvRoute.setText(route + " • " + participants + " people");
+                    tvRoute.setText(route + " • " + actualMemberCount + " member" + (actualMemberCount != 1 ? "s" : ""));
                     tvRoute.setTextColor(android.graphics.Color.WHITE);
                     tvRoute.setTextSize(14f);
                     cardContent.addView(tvRoute);
@@ -118,6 +126,35 @@ public class GroupsActivity extends AppCompatActivity {
                     tvTime.setTextSize(14f);
                     tvTime.setPadding(0, 8, 0, 0);
                     cardContent.addView(tvTime);
+
+                    // Weekly steps info
+                    try {
+                        int groupWeeklySteps = dbHelper.getGroupThisWeekTotalSteps(groupIndex);
+                        float groupWeeklyDistance = dbHelper.getGroupThisWeekTotalDistance(groupIndex);
+                        float groupWeeklyCalories = dbHelper.getGroupThisWeekTotalCalories(groupIndex);
+                        
+                        TextView tvWeeklyStats = new TextView(this);
+                        tvWeeklyStats.setText(String.format("This Week: %,d steps • %.2f km • %.0f kcal", 
+                            groupWeeklySteps, groupWeeklyDistance, groupWeeklyCalories));
+                        tvWeeklyStats.setTextColor(android.graphics.Color.WHITE);
+                        tvWeeklyStats.setTextSize(12f);
+                        tvWeeklyStats.setPadding(0, 8, 0, 0);
+                        cardContent.addView(tvWeeklyStats);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        // If there's an error, just continue without showing weekly stats
+                    }
+                    
+                    // Show if user is already a member
+                    String currentUsername = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("username", "");
+                    if (dbHelper.isGroupMember(groupIndex, currentUsername)) {
+                        TextView tvMemberStatus = new TextView(this);
+                        tvMemberStatus.setText("✓ You're a member");
+                        tvMemberStatus.setTextColor(android.graphics.Color.parseColor("#90EE90")); // Light green
+                        tvMemberStatus.setTextSize(12f);
+                        tvMemberStatus.setPadding(0, 4, 0, 0);
+                        cardContent.addView(tvMemberStatus);
+                    }
 
                     // Button row
                     LinearLayout buttonRow = new LinearLayout(this);
@@ -137,9 +174,15 @@ public class GroupsActivity extends AppCompatActivity {
 
                     // Join Button
                     Button btnJoin = new Button(this);
-                    btnJoin.setText("Join");
+                    boolean isAlreadyMember = dbHelper.isGroupMember(groupIndex, currentUsername);
+                    if (isAlreadyMember) {
+                        btnJoin.setText("Open Group");
+                        btnJoin.setBackgroundResource(R.drawable.bg_button_share); // Different color for members
+                    } else {
+                        btnJoin.setText("Join");
+                        btnJoin.setBackgroundResource(R.drawable.bg_button_edit); // purple background
+                    }
                     btnJoin.setTextColor(android.graphics.Color.WHITE);
-                    btnJoin.setBackgroundResource(R.drawable.bg_button_edit); // purple background
                     Drawable iconJoin = ContextCompat.getDrawable(this, R.drawable.ic_person);
                     btnJoin.setCompoundDrawablesWithIntrinsicBounds(iconJoin, null, null, null);
                     btnJoin.setCompoundDrawablePadding((int)(8 * getResources().getDisplayMetrics().density));
@@ -156,23 +199,57 @@ public class GroupsActivity extends AppCompatActivity {
                             android.widget.Toast.makeText(this, "No user logged in!", android.widget.Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        
+                        // If already a member, just open the group
+                        if (isAlreadyMember) {
+                            Intent intent = new Intent(this, WalkingGroupActivity.class);
+                            intent.putExtra("group_id", groupIndex);
+                            intent.putExtra("group_name", name);
+                            intent.putExtra("group_participants", participants);
+                            startActivity(intent);
+                            return;
+                        }
+                        
                         try {
                             UserDatabaseHelper db = new UserDatabaseHelper(this);
+                            
+                            // First, get all existing members of the group BEFORE adding the new user
+                            android.database.Cursor existingMembersCursor = db.getGroupMembers(groupIndex);
+                            java.util.HashSet<String> existingMembers = new java.util.HashSet<>();
+                            if (existingMembersCursor != null && existingMembersCursor.moveToFirst()) {
+                                do {
+                                    String member = existingMembersCursor.getString(existingMembersCursor.getColumnIndexOrThrow("username"));
+                                    if (!member.equals(username)) {
+                                        existingMembers.add(member);
+                                    }
+                                } while (existingMembersCursor.moveToNext());
+                                existingMembersCursor.close();
+                            }
+                            
+                            // Now add the user to the group
                             db.addGroupMember(groupIndex, username);
-                            // Add all group members as friends (except self)
-                            android.database.Cursor membersCursor = db.getGroupMembers(groupIndex);
-                            java.util.HashSet<String> friendsSet = new java.util.HashSet<>();
+                            
+                            // Add all existing group members as friends for the joining user
                             android.content.SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                             java.util.Set<String> existingFriends = prefs.getStringSet("friends", new java.util.HashSet<>());
-                            if (existingFriends != null) friendsSet.addAll(existingFriends);
-                            if (membersCursor != null && membersCursor.moveToFirst()) {
-                                do {
-                                    String member = membersCursor.getString(membersCursor.getColumnIndexOrThrow("username"));
-                                    if (!member.equals(username)) friendsSet.add(member);
-                                } while (membersCursor.moveToNext());
-                                membersCursor.close();
+                            java.util.HashSet<String> updatedFriendsSet = new java.util.HashSet<>();
+                            if (existingFriends != null) {
+                                updatedFriendsSet.addAll(existingFriends);
                             }
-                            prefs.edit().putStringSet("friends", friendsSet).apply();
+                            updatedFriendsSet.addAll(existingMembers);
+                            prefs.edit().putStringSet("friends", updatedFriendsSet).apply();
+                            
+                            // Show success message with number of new friends
+                            if (!existingMembers.isEmpty()) {
+                                String friendText = existingMembers.size() == 1 ? "friend" : "friends";
+                                android.widget.Toast.makeText(this, 
+                                    "Joined group! Added " + existingMembers.size() + " new " + friendText, 
+                                    android.widget.Toast.LENGTH_SHORT).show();
+                            } else {
+                                android.widget.Toast.makeText(this, "Joined group! You're the first member.", 
+                                    android.widget.Toast.LENGTH_SHORT).show();
+                            }
+                            
                             String joinedKey = "joined_group_" + groupIndex;
                             if (!prefs.getBoolean(joinedKey, false)) {
                                 int groupsJoined = prefs.getInt("groups_joined", 0) + 1;

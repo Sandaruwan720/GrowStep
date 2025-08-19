@@ -44,7 +44,7 @@
             android:id="@+id/tvUserLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Level 8 Walker • 2,450 points"
+            android:text="Level 1 Walker • 2,450 points"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
     </LinearLayout>
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
-                android:text="This week's Steps"
+                android:text="The previous Steps"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 android:textStyle="bold" />

@@ -54,6 +54,8 @@
         <activity android:name=".AchievementsActivity" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".WalkingGroupActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".WeeklyStepsActivity" />
 
 
     </application>

@@ -89,6 +89,36 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeActivity.this, StartWalkingActivity.class);
             startActivity(intent);
         });
+
+        // Save to weekly database if user is logged in
+        if (!username.isEmpty() && todaySteps > 0) {
+            try {
+                UserDatabaseHelper dbHelper = new UserDatabaseHelper(this);
+                dbHelper.addDailySteps(username, todaySteps, todayDistance, todayCalories);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Don't show toast here as it might be called frequently
+            }
+        }
+
+        // Set up weekly steps button (null-guarded)
+        LinearLayout weeklyStepsButton = findViewById(R.id.weeklyStepsButton);
+        if (weeklyStepsButton != null) {
+            weeklyStepsButton.setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, WeeklyStepsActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        // Set subtitle with weekly total steps (null-guarded)
+        try {
+            TextView tvWeeklySubtitle = findViewById(R.id.tvWeeklySubtitle);
+            if (tvWeeklySubtitle != null && !username.isEmpty()) {
+                UserDatabaseHelper db = new UserDatabaseHelper(this);
+                int weeklySteps = db.getThisWeekTotalSteps(username);
+                tvWeeklySubtitle.setText(String.format("Total: %,d steps", weeklySteps));
+            }
+        } catch (Exception ignored) {}
     }
 
     private void animateSteps() {
